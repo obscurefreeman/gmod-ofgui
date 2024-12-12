@@ -1,7 +1,7 @@
 local PANEL = {}
 
 function PANEL:Init()
-	self:SetFont("xpgui_medium")
+	self:SetFont("ofgui_medium")
 	self:SetText("")
 
 	self:SetTooltipPanelOverride("XPTooltip")
@@ -14,12 +14,12 @@ function PANEL:Init()
 	self:SetDoubleClickingEnabled(false)
 	self:SetExpensiveShadow(1, ColorAlpha(color_black, 140))
 
-	self.ColorA = XPGUI.ButtonColor.a
-	self.Color = Color(XPGUI.ButtonColor.r, XPGUI.ButtonColor.g, XPGUI.ButtonColor.b, XPGUI.ButtonColor.a)
+	self.ColorA = OFGUI.ButtonColor.a
+	self.Color = Color(OFGUI.ButtonColor.r, OFGUI.ButtonColor.g, OFGUI.ButtonColor.b, OFGUI.ButtonColor.a)
 end
 
 function PANEL:OnDepressed()
-	XPGUI.PlaySound(XPGUI.ButtonClickSound)
+	OFGUI.PlaySound(OFGUI.ButtonClickSound)
 end
 
 function PANEL:OnCursorEntered()
@@ -27,7 +27,7 @@ function PANEL:OnCursorEntered()
 		return
 	end
 
-	XPGUI.PlaySound(XPGUI.ButtonHoverSound)
+	OFGUI.PlaySound(OFGUI.ButtonHoverSound)
 end
 
 function PANEL:Paint(w, h)
@@ -51,9 +51,9 @@ end
 
 function PANEL:UpdateColours()
 	if self:GetDisabled() then
-		return self:SetTextStyleColor(XPGUI.ButtonDisabledTextColor)
+		return self:SetTextStyleColor(OFGUI.ButtonDisabledTextColor)
 	else
-		return self:SetTextStyleColor(XPGUI.ButtonTextColor)
+		return self:SetTextStyleColor(OFGUI.ButtonTextColor)
 	end
 end
 

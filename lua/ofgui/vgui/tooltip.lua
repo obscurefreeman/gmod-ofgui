@@ -5,7 +5,7 @@ function PANEL:Init()
 	self.DeleteContentsOnClose = false
 
 	self:SetText("")
-	self:SetFont("xpgui_small")
+	self:SetFont("ofgui_small")
 	self:SetExpensiveShadow(1, ColorAlpha(color_black, 170))
 end
 
@@ -87,7 +87,7 @@ function PANEL:Paint(w, h)
 		surface.DrawPanelBlur(self, 6)
 	end)
 
-	draw.RoundedBox(6, 0, 0, w, h, XPGUI.BGColor)
+	draw.RoundedBox(6, 0, 0, w, h, OFGUI.BGColor)
 end
 
 function PANEL:OpenForPanel(panel)

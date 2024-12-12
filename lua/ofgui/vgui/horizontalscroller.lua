@@ -51,12 +51,12 @@ function PANEL:Init()
 
 	self.btnLeft = vgui.Create("XPButton", self)
 	self.btnLeft.PaintOver = function(panel, w, h)
-		draw.SimpleText("<", "xpgui_big", w * 0.5, h * 0.5 - 2, XPGUI.HorizontalScrollerArrowColor, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
+		draw.SimpleText("<", "ofgui_big", w * 0.5, h * 0.5 - 2, OFGUI.HorizontalScrollerArrowColor, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
 	end
 
 	self.btnRight = vgui.Create("XPButton", self)
 	self.btnRight.PaintOver = function(panel, w, h)
-		draw.SimpleText(">", "xpgui_big", w * 0.5, h * 0.5 - 2, XPGUI.HorizontalScrollerArrowColor, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
+		draw.SimpleText(">", "ofgui_big", w * 0.5, h * 0.5 - 2, OFGUI.HorizontalScrollerArrowColor, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
 	end
 end
 

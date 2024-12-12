@@ -3,7 +3,7 @@ local gradtex = surface.GetTextureID("gui/gradient_down")
 local PANEL = {}
 
 function PANEL:Init()
-	XPGUI.Add(self)
+	OFGUI.Add(self)
 
 	self.startTime = SysTime()
 
@@ -40,8 +40,8 @@ function PANEL:Init()
 		dock.Hovered = false
 	end
 
-	self.TopDock.CloseGradientAlpha = XPGUI.CloseHoverColor.a
-	self.TopDockColor = XPGUI.CloseHoverColor
+	self.TopDock.CloseGradientAlpha = OFGUI.CloseHoverColor.a
+	self.TopDockColor = OFGUI.CloseHoverColor
 
 	self.TopDock.SlideAnim = EasyAnim.NewAnimation(0.5, EASE_OutExpo)
 	self.TopDock.SlideAnim.Value = -self.TopDock:GetTall()
@@ -56,14 +56,14 @@ function PANEL:Init()
 	end
 	self.TopDock.Think = function(dock)
 		if dock:IsHovered() then
-			self.TopDockColor = XPGUI.CloseHoverColor
+			self.TopDockColor = OFGUI.CloseHoverColor
 			dock.SlideAnim:AnimTo(0)
 		else
-			self.TopDockColor = XPGUI.CloseColor
+			self.TopDockColor = OFGUI.CloseColor
 			dock.SlideAnim:AnimTo(-dock:GetTall())
 		end
 		if dock:IsDown() then
-			self.TopDockColor = XPGUI.ClosePressColor
+			self.TopDockColor = OFGUI.ClosePressColor
 		end
 	end
 end
@@ -97,13 +97,13 @@ function PANEL:Paint(w, h)
 		if self.FrameBlur then
 			surface.DrawPanelBlur(self, 6)
 		end
-		draw.RoundedBox(self.Rounded, 0, 0, w, h, XPGUI.BGColor)
+		draw.RoundedBox(self.Rounded, 0, 0, w, h, OFGUI.BGColor)
 
-		surface.SetDrawColor(XPGUI.HeaderLineColor)
+		surface.SetDrawColor(OFGUI.HeaderLineColor)
 		surface.DrawLine(8, self.TopDock:GetTall() - 1, w - 8, self.TopDock:GetTall() - 1)
 		surface.DrawLine(8, self.TopDock:GetTall(), w - 8, self.TopDock:GetTall())
 		surface.SetTexture(gradtex)
-		surface.SetDrawColor(ColorAlpha(self.TopDockColor, XPGUI.CloseHoverColor.a * math.abs(self.TopDock.SlideAnim:GetValue() + self.TopDock:GetTall()) / self.TopDock:GetTall()))
+		surface.SetDrawColor(ColorAlpha(self.TopDockColor, OFGUI.CloseHoverColor.a * math.abs(self.TopDock.SlideAnim:GetValue() + self.TopDock:GetTall()) / self.TopDock:GetTall()))
 		surface.DrawTexturedRect(0, self.TopDock.SlideAnim:GetValue(), w, self.TopDock:GetTall())
 	end)
 end
@@ -114,7 +114,7 @@ function PANEL:SetTitle(text)
 	self.Title:SetText(text)
 	self.Title:SetExpensiveShadow(1, ColorAlpha(color_black, 120))
 
-	self.Title:SetFont("xpgui_big")
+	self.Title:SetFont("ofgui_big")
 	self.Title:SetContentAlignment(4)
 	self.Title:SizeToContents()
 
@@ -143,7 +143,7 @@ function PANEL:SetBottomButton(title, dock, func)
 end
 
 function PANEL:OnRemove()
-	table.RemoveByValue(XPGUI.Opened, self)
+	table.RemoveByValue(OFGUI.Opened, self)
 end
 
 function PANEL:OnClose()

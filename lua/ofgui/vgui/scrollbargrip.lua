@@ -2,8 +2,8 @@ local PANEL = {}
 
 function PANEL:Init()
 	self.BarScale = 6
-	self.ColorA = XPGUI.ScrollBarGripColor.a
-	self.Color = Color(XPGUI.ScrollBarGripColor.r, XPGUI.ScrollBarGripColor.g, XPGUI.ScrollBarGripColor.b, XPGUI.ScrollBarGripColor.a)
+	self.ColorA = OFGUI.ScrollBarGripColor.a
+	self.Color = Color(OFGUI.ScrollBarGripColor.r, OFGUI.ScrollBarGripColor.g, OFGUI.ScrollBarGripColor.b, OFGUI.ScrollBarGripColor.a)
 end
 
 function PANEL:OnMousePressed()

@@ -2,7 +2,7 @@ local PANEL = {}
 
 function PANEL:Init()
 	self:SetTextInset(5, 0)
-	self:SetFont("xpgui_tiny")
+	self:SetFont("ofgui_tiny")
 end
 
 function PANEL:UpdateColours(skin)
@@ -14,9 +14,9 @@ end
 
 function PANEL:Think()
 	if self:GetParent():IsLineSelected() or self:GetParent():IsHovered() then
-		self:SetTextColor(XPGUI.ListViewSelectedTextColor)
+		self:SetTextColor(OFGUI.ListViewSelectedTextColor)
 	else
-		self:SetTextColor(XPGUI.ListViewTextColor)
+		self:SetTextColor(OFGUI.ListViewTextColor)
 	end
 end
 
@@ -45,15 +45,15 @@ function PANEL:Init()
 	self.Columns = {}
 	self.Data = {}
 
-	self.Color = XPGUI.ListViewLineColor
+	self.Color = OFGUI.ListViewLineColor
 end
 
 function PANEL:Paint(w,h)
 	if self:IsHovered() then
-		self.Color = LerpColor(10 * FrameTime(), self.Color, self:IsLineSelected() and XPGUI.ListViewLineSelectedHoverColor or XPGUI.ListViewLineHoverColor)
+		self.Color = LerpColor(10 * FrameTime(), self.Color, self:IsLineSelected() and OFGUI.ListViewLineSelectedHoverColor or OFGUI.ListViewLineHoverColor)
 		draw.RoundedBox(4, 0, 0, w, h, self.Color)
 	elseif self:IsLineSelected() then
-		self.Color = LerpColor(10 * FrameTime(), self.Color, XPGUI.ListViewLineSelectedColor)
+		self.Color = LerpColor(10 * FrameTime(), self.Color, OFGUI.ListViewLineSelectedColor)
 		draw.NoRoundedBox(0, 0, w, h, self.Color)
 	end
 end

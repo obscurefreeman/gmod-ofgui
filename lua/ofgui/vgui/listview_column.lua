@@ -36,7 +36,7 @@ function PANEL:Init()
 		draw.RoundedBoxEx(6, 0, 0, w - (id < #self:GetParent().Columns and 1 or 0), h, pan.Color, not (id > 1), not (id < #self:GetParent().Columns), false, false)
 	end
 
-	self.Header:SetFont("xpgui_extratiny")
+	self.Header:SetFont("ofgui_extratiny")
 
 	self.Header.DoClick = function()
 		self:DoClick()

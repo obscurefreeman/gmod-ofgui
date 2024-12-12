@@ -17,7 +17,7 @@ function PANEL:Init()
 	CT = SysTime()
 	self.OpenAnimStartTime = SysTime()
 	self.OpenBarScale = 0
-	self.OpenBarColor = XPGUI.ComboBoxOpenBarColor
+	self.OpenBarColor = OFGUI.ComboBoxOpenBarColor
 
 	self.DropButton = vgui.Create("DPanel", self)
 
@@ -34,7 +34,7 @@ function PANEL:Init()
 				self.OpenBarScale = 6 / 0.2 * (CT - self.OpenAnimStartTime)
 			end
 
-			self.OpenBarColor = LerpColor(2.5 * FrameTime(), self.OpenBarColor, self:GetSelectedID() and XPGUI.ComboBoxOpenBarChosenColor or XPGUI.ComboBoxOpenBarOpenedColor)
+			self.OpenBarColor = LerpColor(2.5 * FrameTime(), self.OpenBarColor, self:GetSelectedID() and OFGUI.ComboBoxOpenBarChosenColor or OFGUI.ComboBoxOpenBarOpenedColor)
 		else
 			if self.OpenAnimStartTime < 0 and not self:GetSelectedID() then
 				self.OpenAnimStartTime = CT
@@ -44,7 +44,7 @@ function PANEL:Init()
 				self.OpenBarScale = 6 - 6 / 0.2 * (CT - self.OpenAnimStartTime)
 			end
 
-			self.OpenBarColor = LerpColor(2.5 * FrameTime(), self.OpenBarColor, self:GetSelectedID() and XPGUI.ComboBoxOpenBarChosenColor or XPGUI.ComboBoxOpenBarColor)
+			self.OpenBarColor = LerpColor(2.5 * FrameTime(), self.OpenBarColor, self:GetSelectedID() and OFGUI.ComboBoxOpenBarChosenColor or OFGUI.ComboBoxOpenBarColor)
 		end
 
 		surface.SetDrawColor(self.OpenBarColor)
@@ -60,11 +60,11 @@ function PANEL:Init()
 	self.DropButton:SetMouseInputEnabled(false)
 	self.DropButton.ComboBox = self
 
-	self.FGColor = XPGUI.BGColor
+	self.FGColor = OFGUI.BGColor
 	self.FGColor = Color(255 - self.FGColor.r, 255 - self.FGColor.g, 255 - self.FGColor.b, 25)
-	self.FGLineColor = XPGUI.ComboBoxFGLineColor
+	self.FGLineColor = OFGUI.ComboBoxFGLineColor
 
-	self:SetFont("xpgui_tiny")
+	self:SetFont("ofgui_tiny")
 	self:SetTextColor(color_white)
 
 	self:SetTooltipPanelOverride("XPTooltip")
@@ -158,11 +158,11 @@ function PANEL:OpenMenu(pControlOpener)
 end
 
 function PANEL:OnCursorEntered(val)
-	XPGUI.PlaySound(XPGUI.ButtonHoverSound)
+	OFGUI.PlaySound(OFGUI.ButtonHoverSound)
 end
 
 function PANEL:OnDepressed()
-	XPGUI.PlaySound(XPGUI.ButtonClickSound)
+	OFGUI.PlaySound(OFGUI.ButtonClickSound)
 end
 
 derma.DefineControl("XPComboBox", "", PANEL, "DComboBox")

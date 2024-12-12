@@ -11,12 +11,12 @@ function PANEL:Init()
 	self:SetMouseInputEnabled(true)
 	self:SetContentAlignment(7)
 	self:SetTextInset(0, 4)
-	self.Color = XPGUI.PSTabInactiveColor
+	self.Color = OFGUI.PSTabInactiveColor
 end
 
 function PANEL:Setup(label, pPropertySheet, pPanel, strMaterial)
 	self:SetText(label)
-	self:SetFont("xpgui_tiny")
+	self:SetFont("ofgui_tiny")
 
 	self:SetPropertySheet(pPropertySheet)
 	self:SetPanel(pPanel)
@@ -46,20 +46,20 @@ end
 
 function PANEL:UpdateColours()
 	if self:GetDisabled() then
-		return self:SetTextStyleColor(XPGUI.PSTabDisabledTextColor)
+		return self:SetTextStyleColor(OFGUI.PSTabDisabledTextColor)
 	else
-		return self:SetTextStyleColor(XPGUI.PSTabTextColor)
+		return self:SetTextStyleColor(OFGUI.PSTabTextColor)
 	end
 end
 
 function PANEL:Paint(w,h)
 	if self:IsActive() then
-		self.Color = LerpColor(7.5 * FrameTime(), self.Color, XPGUI.PSTabActiveColor)
+		self.Color = LerpColor(7.5 * FrameTime(), self.Color, OFGUI.PSTabActiveColor)
 	else
 		if self:IsHovered() then
-			self.Color = LerpColor(7.5 * FrameTime(), self.Color, XPGUI.PSTabHoverColor)
+			self.Color = LerpColor(7.5 * FrameTime(), self.Color, OFGUI.PSTabHoverColor)
 		else
-			self.Color = LerpColor(7.5 * FrameTime(), self.Color, XPGUI.PSTabInactiveColor)
+			self.Color = LerpColor(7.5 * FrameTime(), self.Color, OFGUI.PSTabInactiveColor)
 		end
 	end
 	draw.RoundedBoxEx(8, 0, 0, w, h, self.Color, true, true, false, false)
@@ -95,7 +95,7 @@ function PANEL:DoRightClick()
 		return
 	end
 
-	local tabs = XPGUI.Menu()
+	local tabs = OFGUI.Menu()
 	for _, v in pairs(self:GetPropertySheet().Items) do
 		if not v or not IsValid(v.Tab) or not v.Tab:IsVisible() then
 			continue
@@ -139,12 +139,12 @@ function PANEL:Init()
 	self:InvalidateParent()
 
 	self.tabScroller.Paint = function(tbs, w, h)
-		surface.SetDrawColor(XPGUI.PSUnderlineDefaultColor)
+		surface.SetDrawColor(OFGUI.PSUnderlineDefaultColor)
 		surface.DrawLine(0, 24, w, 24)
 		surface.DrawLine(0, 25, w, 25)
 
 		local p_x, _, p_w, _ = self.m_pActiveTab:GetBounds()
-		surface.SetDrawColor(XPGUI.PSUnderlineActiveColor)
+		surface.SetDrawColor(OFGUI.PSUnderlineActiveColor)
 		surface.DrawLine(p_x, 24, p_x + p_w-1, 24)
 		surface.DrawLine(p_x, 25, p_x + p_w-1, 25)
 	end

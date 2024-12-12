@@ -16,7 +16,7 @@ function PANEL:Init()
 	self.CheckSize = 8
 	self.CheckRound = 6
 
-	self.Color = XPGUI.BGColor
+	self.Color = OFGUI.BGColor
 	self.Color = Color(255 - self.Color.r, 255 - self.Color.g, 255 - self.Color.b, 25)
 
 	self.CheckAnim = EasyAnim.NewAnimation(0.5, EASE_OutExpo)
@@ -59,16 +59,16 @@ function PANEL:Paint(w, h)
 	self.CheckSize = math.ceil(self.CheckSize)
 	self.CheckPos_xy = (w - self.CheckSize) * 0.5
 	draw.RoundedBox(4, 0, 0, w, h, self.Color) -- bg
-	draw.RoundedBox(self.CheckRound, self.CheckPos_xy, self.CheckPos_xy, self.CheckSize, self.CheckSize, ColorAlpha(XPGUI.CheckBoxCheckColor, self.CheckedColorAlpha))
+	draw.RoundedBox(self.CheckRound, self.CheckPos_xy, self.CheckPos_xy, self.CheckSize, self.CheckSize, ColorAlpha(OFGUI.CheckBoxCheckColor, self.CheckedColorAlpha))
 end
 
 function PANEL:OnCursorEntered(val)
-	XPGUI.PlaySound(XPGUI.ButtonHoverSound)
+	OFGUI.PlaySound(OFGUI.ButtonHoverSound)
 end
 
 function PANEL:OnChange(val)
 	if val and self.Init then
-		XPGUI.PlaySound(XPGUI.ButtonClickSound)
+		OFGUI.PlaySound(OFGUI.ButtonClickSound)
 	end
 end
 
@@ -93,12 +93,12 @@ function PANEL:Init()
 	end
 
 	if self.Label then
-		self.Label:SetFont("xpgui_tiny")
+		self.Label:SetFont("ofgui_tiny")
 		self.Label:SetTextColor(color_white)
 
 		function self.Label:OnCursorEntered()
 			if not self:GetDisabled() then
-				XPGUI.PlaySound(XPGUI.ButtonHoverSound)
+				OFGUI.PlaySound(OFGUI.ButtonHoverSound)
 			end
 		end
 	end
@@ -106,7 +106,7 @@ end
 
 function PANEL:OnChange(val)
 	if val then
-		XPGUI.PlaySound(XPGUI.ButtonClickSound)
+		OFGUI.PlaySound(OFGUI.ButtonClickSound)
 	end
 end
 

@@ -1,16 +1,16 @@
-XPGUI.Opened = {}
+OFGUI.Opened = {}
 
-function XPGUI.GetLast()
-	return table.GetLastValue(XPGUI.Opened)
+function OFGUI.GetLast()
+	return table.GetLastValue(OFGUI.Opened)
 end
 
-function XPGUI.GetFirst()
-	return table.GetFirstValue(XPGUI.Opened)
+function OFGUI.GetFirst()
+	return table.GetFirstValue(OFGUI.Opened)
 end
 
-function XPGUI.GetAmount()
+function OFGUI.GetAmount()
 	local amount = 0
-	for _, pnl in ipairs(XPGUI.Opened) do
+	for _, pnl in ipairs(OFGUI.Opened) do
 		if IsValid(pnl) and pnl:IsVisible() then
 			amount = amount + 1
 		end
@@ -18,27 +18,27 @@ function XPGUI.GetAmount()
 	return amount
 end
 
-function XPGUI.RemoveLast()
-	local last = XPGUI.GetLast()
+function OFGUI.RemoveLast()
+	local last = OFGUI.GetLast()
 	if IsValid(last) then
 		last:Close()
 	end
 end
 
-function XPGUI.Add(pnl)
-	table.insert(XPGUI.Opened, pnl)
+function OFGUI.Add(pnl)
+	table.insert(OFGUI.Opened, pnl)
 end
 
-function XPGUI.PlaySound(path)
-	if XPGUI.SoundEnabled then
+function OFGUI.PlaySound(path)
+	if OFGUI.SoundEnabled then
 		surface.PlaySound(path)
 	end
 end
 
 local firstPressed
-hook.Add("PreRender", "XPGUI Binding", function()
-	if not firstPressed and input.IsButtonDown(KEY_ESCAPE) and XPGUI.GetAmount() > 0 then
-		XPGUI.RemoveLast()
+hook.Add("PreRender", "OFGUI Binding", function()
+	if not firstPressed and input.IsButtonDown(KEY_ESCAPE) and OFGUI.GetAmount() > 0 then
+		OFGUI.RemoveLast()
 		firstPressed = true
 		if gui.IsGameUIVisible() then
 			gui.HideGameUI()

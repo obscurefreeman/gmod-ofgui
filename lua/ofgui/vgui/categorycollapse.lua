@@ -7,7 +7,7 @@ local PANEL = {}
 function PANEL:Init()
 	self:SetContentAlignment(4)
 	self:SetTextInset(5, -3)
-	self:SetFont("xpgui_tiny")
+	self:SetFont("ofgui_tiny")
 end
 
 function PANEL:DoClick()
@@ -16,17 +16,17 @@ end
 
 function PANEL:UpdateColours(skin)
 	if not self:GetParent():GetExpanded() then
-		self:SetExpensiveShadow(0, XPGUI.CollapsibleCategoryClosedShadowColor)
+		self:SetExpensiveShadow(0, OFGUI.CollapsibleCategoryClosedShadowColor)
 		return self:SetTextStyleColor(skin.Colours.Category.Header_Closed)
 	end
 
-	self:SetExpensiveShadow(1, XPGUI.CollapsibleCategoryExpandedShadowColor)
+	self:SetExpensiveShadow(1, OFGUI.CollapsibleCategoryExpandedShadowColor)
 	return self:SetTextStyleColor(skin.Colours.Category.Header)
 end
 
 function PANEL:Paint(w, h)
 	if not self:GetParent():GetExpanded() then
-		draw.SimpleText("u", "Marlett", w, h * 0.5 - 2, XPGUI.CollapsibleCategoryExpandIconColor, TEXT_ALIGN_RIGHT, TEXT_ALIGN_CENTER)
+		draw.SimpleText("u", "Marlett", w, h * 0.5 - 2, OFGUI.CollapsibleCategoryExpandIconColor, TEXT_ALIGN_RIGHT, TEXT_ALIGN_CENTER)
 	end
 end
 
@@ -62,8 +62,8 @@ function PANEL:Init()
 	self:DockMargin(0, 0, 0, 2)
 	self:DockPadding(0, 0, 0, 0)
 
-	self.ColorA = XPGUI.ButtonColor.a
-	self.Color = Color(XPGUI.ButtonColor.r, XPGUI.ButtonColor.g, XPGUI.ButtonColor.b, XPGUI.ButtonColor.a)
+	self.ColorA = OFGUI.ButtonColor.a
+	self.Color = Color(OFGUI.ButtonColor.r, OFGUI.ButtonColor.g, OFGUI.ButtonColor.b, OFGUI.ButtonColor.a)
 end
 
 function PANEL:Add(strName)

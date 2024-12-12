@@ -35,7 +35,7 @@ function PANEL:Init()
 end
 
 function PANEL:Paint(w, h)
-	draw.RoundedBox(6, 0, 0, w - 19, h, XPGUI.BGColor)
+	draw.RoundedBox(6, 0, 0, w - 19, h, OFGUI.BGColor)
 end
 
 function PANEL:DisableScrollbar()

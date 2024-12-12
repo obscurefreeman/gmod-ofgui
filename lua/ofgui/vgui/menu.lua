@@ -1,4 +1,4 @@
-function XPGUI.Menu(parentMenu, parent)
+function OFGUI.Menu(parentMenu, parent)
 	if not parentMenu then
 		CloseDermaMenus()
 	end
@@ -49,7 +49,7 @@ function PANEL:AddOption(strText, funcFunction)
 
 	pnl:SetText(strText)
 	pnl:SetTextColor(color_white)
-	pnl:SetFont("xpgui_medium")
+	pnl:SetFont("ofgui_medium")
 	pnl:SetExpensiveShadow(1, ColorAlpha(color_black, 140))
 
 	if funcFunction then
@@ -72,7 +72,7 @@ function PANEL:AddCVar(strText, convar, on, off, funcFunction)
 
 	pnl:SetText(strText)
 	pnl:SetTextColor(color_white)
-	pnl:SetFont("xpgui_medium")
+	pnl:SetFont("ofgui_medium")
 	pnl:SetExpensiveShadow(1, ColorAlpha(color_black, 140))
 
 	if funcFunction then
@@ -107,7 +107,7 @@ function PANEL:AddSubMenu(strText, funcFunction)
 
 	pnl:SetText(strText)
 	pnl:SetTextColor(color_white)
-	pnl:SetFont("xpgui_medium")
+	pnl:SetFont("ofgui_medium")
 	pnl:SetExpensiveShadow(1, ColorAlpha(color_black, 140))
 
 	if funcFunction then
@@ -169,7 +169,7 @@ function PANEL:Paint(w, h)
 	end, function()
 		surface.DrawPanelBlur(self, 6)
 	end)
-	draw.RoundedBox(6, 0, 0, w, h - 1, XPGUI.BGColor)
+	draw.RoundedBox(6, 0, 0, w, h - 1, OFGUI.BGColor)
 
 	return true
 end

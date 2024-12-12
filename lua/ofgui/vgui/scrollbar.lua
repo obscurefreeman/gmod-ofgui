@@ -129,7 +129,7 @@ end
 function PANEL:Paint(w, h)
 	self.BackgroundOpacity = Lerp(5 * FrameTime(), self.BackgroundOpacity, self.Dragging and 180 or 0)
 
-	draw.RoundedBox(self.btnGrip.BarScale, w - self.btnGrip.BarScale, 0, self.btnGrip.BarScale, h, ColorAlpha(XPGUI.ScrollBarBGColor, self.BackgroundOpacity))
+	draw.RoundedBox(self.btnGrip.BarScale, w - self.btnGrip.BarScale, 0, self.btnGrip.BarScale, h, ColorAlpha(OFGUI.ScrollBarBGColor, self.BackgroundOpacity))
 	return true
 end
 

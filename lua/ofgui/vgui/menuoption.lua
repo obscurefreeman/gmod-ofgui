@@ -25,7 +25,7 @@ function PANEL:SetSubMenu(menu)
 end
 
 function PANEL:AddSubMenu()
-	local subMenu = XPGUI.Menu(self)
+	local subMenu = OFGUI.Menu(self)
 	subMenu:SetVisible(false)
 	subMenu:SetParent(self)
 

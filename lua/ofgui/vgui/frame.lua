@@ -20,51 +20,35 @@ function PANEL:Init()
 	self.FrameBlur = true
 	self.BackgroundBlur = false
 
-	self.TopDock = vgui.Create("DButton", self)
-	self.TopDock:Dock(TOP)
-	self.TopDock:SetTall(32)
-	self.TopDock:SetText("")
+	-- 创建标题栏面板
+	self.TopBar = vgui.Create("DPanel", self)
+	self.TopBar:Dock(TOP)
+	self.TopBar:SetTall(32)
+	self.TopBar.Paint = function() end
 
-	self.TopDock.Paint = nil
-	self.TopDock.Hovered = false
+	-- 创建控制按钮容器
+	self.ControlButtons = vgui.Create("DPanel", self.TopBar)
+	self.ControlButtons:Dock(RIGHT)
+	self.ControlButtons:SetWide(70)
+	self.ControlButtons.Paint = function() end
 
-	self.TopDock.DoClick = function()
+	-- 创建关闭按钮
+	self.CloseButton = vgui.Create("DButton", self.ControlButtons)
+	self.CloseButton:SetSize(24, 24)
+	self.CloseButton:Dock(RIGHT)
+	self.CloseButton:DockMargin(4, 4, 4, 4)
+	self.CloseButton:SetText("")
+	self.CloseButton.Paint = function(pnl, w, h)
+		local bgColor = pnl:IsHovered() and OFGUI.ClosePressColor or OFGUI.CloseColor
+		draw.RoundedBox(4, 0, 0, w, h, bgColor)
+		
+		surface.SetFont("ofgui_medium")
+		surface.SetTextColor(255, 255, 255, 255)
+		surface.SetTextPos(w/2 - 4, h/2 - 6)
+		surface.DrawText("X")
+	end
+	self.CloseButton.DoClick = function()
 		self:Close()
-	end
-
-	self.TopDock.OnCursorEntered = function(dock)
-		dock.Hovered = true
-	end
-
-	self.TopDock.OnCursorExited = function(dock)
-		dock.Hovered = false
-	end
-
-	self.TopDock.CloseGradientAlpha = OFGUI.CloseHoverColor.a
-	self.TopDockColor = OFGUI.CloseHoverColor
-
-	self.TopDock.SlideAnim = EasyAnim.NewAnimation(0.5, EASE_OutExpo)
-	self.TopDock.SlideAnim.Value = -self.TopDock:GetTall()
-	self.TopDock.SlideAnim.SetAnimPrinciple = function(animObject)
-		if self.TopDock:IsHovered() then
-			animObject:SetDuration(0.5)
-			animObject:SetEasing(EASE_OutExpo)
-		else
-			animObject:SetDuration(0.75)
-			animObject:SetEasing(EASE_InExpo)
-		end
-	end
-	self.TopDock.Think = function(dock)
-		if dock:IsHovered() then
-			self.TopDockColor = OFGUI.CloseHoverColor
-			dock.SlideAnim:AnimTo(0)
-		else
-			self.TopDockColor = OFGUI.CloseColor
-			dock.SlideAnim:AnimTo(-dock:GetTall())
-		end
-		if dock:IsDown() then
-			self.TopDockColor = OFGUI.ClosePressColor
-		end
 	end
 end
 
@@ -85,7 +69,7 @@ function PANEL:Paint(w, h)
 		Derma_DrawBackgroundBlur(self, self.startTime)
 	end
 
-	if not self.FirstInit then -- We need to pre-cache shape for better performance
+	if not self.FirstInit then
 		self.FirstInit = true
 		self.PolyMask = surface.PrecacheRoundedRect(0, 0, self:GetWide(), self:GetTall(), self.Rounded, 16)
 	end
@@ -100,16 +84,13 @@ function PANEL:Paint(w, h)
 		draw.RoundedBox(self.Rounded, 0, 0, w, h, OFGUI.BGColor)
 
 		surface.SetDrawColor(OFGUI.HeaderLineColor)
-		surface.DrawLine(8, self.TopDock:GetTall() - 1, w - 8, self.TopDock:GetTall() - 1)
-		surface.DrawLine(8, self.TopDock:GetTall(), w - 8, self.TopDock:GetTall())
-		surface.SetTexture(gradtex)
-		surface.SetDrawColor(ColorAlpha(self.TopDockColor, OFGUI.CloseHoverColor.a * math.abs(self.TopDock.SlideAnim:GetValue() + self.TopDock:GetTall()) / self.TopDock:GetTall()))
-		surface.DrawTexturedRect(0, self.TopDock.SlideAnim:GetValue(), w, self.TopDock:GetTall())
+		surface.DrawLine(8, self.TopBar:GetTall() - 1, w - 8, self.TopBar:GetTall() - 1)
+		surface.DrawLine(8, self.TopBar:GetTall(), w - 8, self.TopBar:GetTall())
 	end)
 end
 
 function PANEL:SetTitle(text)
-	self.Title = vgui.Create("DLabel", self.TopDock)
+	self.Title = vgui.Create("DLabel", self.TopBar)
 	self.Title:SetTextColor(color_white)
 	self.Title:SetText(text)
 	self.Title:SetExpensiveShadow(1, ColorAlpha(color_black, 120))
@@ -120,26 +101,6 @@ function PANEL:SetTitle(text)
 
 	self.Title:Dock(TOP)
 	self.Title:DockMargin(6, 2, 6, 2)
-end
-
-function PANEL:SetBottomButton(title, dock, func)
-	if not IsValid(self.BottomDock) then
-		self.BottomDock = vgui.Create("EditablePanel", self)
-		self.BottomDock:Dock(BOTTOM)
-		self.BottomDock:SetTall(47)
-	end
-
-	local Button = vgui.Create("OFButton", self.BottomDock)
-	Button:SetText(title)
-	Button:Dock(dock)
-	Button:DockMargin(6, 6, 6, 6)
-	Button:SizeToContents()
-
-	Button.DoClick = function(self)
-		func(self)
-	end
-
-	return Button
 end
 
 function PANEL:OnRemove()

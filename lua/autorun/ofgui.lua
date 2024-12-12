@@ -8,7 +8,7 @@ end
 if SERVER then
 	resource.AddWorkshop("2390567739")
 else
-	ofgui = {}
+	OFGUI = {}
 	for _, f in pairs(file.Find("ofgui/vgui/*", "LUA")) do
 		include("ofgui/vgui/" .. f)
 	end

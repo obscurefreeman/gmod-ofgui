@@ -129,7 +129,7 @@ function PANEL:SetBottomButton(title, dock, func)
 		self.BottomDock:SetTall(47)
 	end
 
-	local Button = vgui.Create("XPButton", self.BottomDock)
+	local Button = vgui.Create("OFButton", self.BottomDock)
 	Button:SetText(title)
 	Button:Dock(dock)
 	Button:DockMargin(6, 6, 6, 6)
@@ -157,4 +157,4 @@ function PANEL:Close()
 	self:OnClose()
 end
 
-derma.DefineControl("XPFrame", "", PANEL, "EditablePanel")
+derma.DefineControl("OFFrame", "", PANEL, "EditablePanel")

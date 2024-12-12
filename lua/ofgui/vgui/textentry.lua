@@ -10,7 +10,7 @@ function PANEL:Init()
 
 	self.IndicatorColor = Color(255, 255, 255)
 
-	self:SetTooltipPanelOverride("XPTooltip")
+	self:SetTooltipPanelOverride("OFTooltip")
 	self:SetTooltip(false)
 end
 
@@ -37,4 +37,4 @@ function PANEL:Paint(w,h)
 	derma.SkinHook("Paint", "TextEntry", self, w, h)
 end
 
-derma.DefineControl("XPTextEntry", "", PANEL, "DTextEntry")
+derma.DefineControl("OFTextEntry", "", PANEL, "DTextEntry")

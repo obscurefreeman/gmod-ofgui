@@ -4,7 +4,7 @@ function PANEL:Init()
 	self:SetFont("ofgui_medium")
 	self:SetText("")
 
-	self:SetTooltipPanelOverride("XPTooltip")
+	self:SetTooltipPanelOverride("OFTooltip")
 
 	self:SizeToContents()
 	self:SetSize(self:GetWide() + 10, 36)
@@ -57,4 +57,4 @@ function PANEL:UpdateColours()
 	end
 end
 
-derma.DefineControl("XPButton", "", PANEL, "DButton")
+derma.DefineControl("OFButton", "", PANEL, "DButton")

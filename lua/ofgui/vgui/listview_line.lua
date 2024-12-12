@@ -20,7 +20,7 @@ function PANEL:Think()
 	end
 end
 
-derma.DefineControl("XPListViewLabel", "", PANEL, "DLabel")
+derma.DefineControl("OFListViewLabel", "", PANEL, "DLabel")
 
 --[[
 	Line
@@ -40,7 +40,7 @@ function PANEL:Init()
 	self:SetSelectable(true)
 	self:SetMouseInputEnabled(true)
 
-	self:SetTooltipPanelOverride("XPTooltip")
+	self:SetTooltipPanelOverride("OFTooltip")
 
 	self.Columns = {}
 	self.Data = {}
@@ -107,7 +107,7 @@ function PANEL:SetColumnText(i, strText)
 	end
 
 	if not IsValid(self.Columns[i]) then
-		self.Columns[i] = vgui.Create("XPListViewLabel", self)
+		self.Columns[i] = vgui.Create("OFListViewLabel", self)
 		self.Columns[i].IsHovered = self.IsHovered
 		self.Columns[i]:SetMouseInputEnabled(false)
 	end
@@ -147,5 +147,5 @@ function PANEL:DataLayout(ListView)
 	end
 end
 
-derma.DefineControl("XPListViewLine", "", PANEL, "Panel")
-derma.DefineControl("XPListView_Line", "", PANEL, "Panel")
+derma.DefineControl("OFListViewLine", "", PANEL, "Panel")
+derma.DefineControl("OFListView_Line", "", PANEL, "Panel")

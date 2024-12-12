@@ -1,5 +1,5 @@
 --[[
-	XPCategoryHeader
+	OFCategoryHeader
 ]]
 
 local PANEL = {}
@@ -30,10 +30,10 @@ function PANEL:Paint(w, h)
 	end
 end
 
-derma.DefineControl("XPCategoryHeader", "Category Header", PANEL, "XPButton")
+derma.DefineControl("OFCategoryHeader", "Category Header", PANEL, "OFButton")
 
 --[[
-	XPCollapsibleCategory
+	OFCollapsibleCategory
 ]]
 
 local PANEL = {}
@@ -47,7 +47,7 @@ AccessorFunc(PANEL, "m_iPadding", "Padding")
 AccessorFunc(PANEL, "m_pList", "List")
 
 function PANEL:Init()
-	self.Header = vgui.Create("XPCategoryHeader", self)
+	self.Header = vgui.Create("OFCategoryHeader", self)
 	self.Header:Dock(TOP)
 	self.Header:SetSize(20, 20)
 
@@ -67,7 +67,7 @@ function PANEL:Init()
 end
 
 function PANEL:Add(strName)
-	local button = vgui.Create("XPButton", self)
+	local button = vgui.Create("OFButton", self)
 
 	button:SetHeight(17)
 	button:SetTextInset(4, 0)
@@ -263,4 +263,4 @@ function PANEL:LoadCookies()
 	self:GetParent():GetParent():InvalidateLayout()
 end
 
-derma.DefineControl("XPCollapsibleCategory", "Collapsable Category Panel", PANEL, "Panel")
+derma.DefineControl("OFCollapsibleCategory", "Collapsable Category Panel", PANEL, "Panel")

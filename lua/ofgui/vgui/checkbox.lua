@@ -1,5 +1,5 @@
 --[[
-	XPCheckBox
+	OFCheckBox
 ]]
 
 local PANEL = {}
@@ -7,7 +7,7 @@ local PANEL = {}
 function PANEL:Init()
 	self:SetSize(16, 16)
 	self:SetText("")
-	self:SetTooltipPanelOverride("XPTooltip")
+	self:SetTooltipPanelOverride("OFTooltip")
 
 	self.CheckedColorAlpha = 0
 	self.CheckBGColorAlpha = 75
@@ -72,10 +72,10 @@ function PANEL:OnChange(val)
 	end
 end
 
-derma.DefineControl("XPCheckBox", "", PANEL, "DCheckBox")
+derma.DefineControl("OFCheckBox", "", PANEL, "DCheckBox")
 
 --[[
-	XPCheckBoxLabel
+	OFCheckBoxLabel
 ]]
 
 local PANEL = {}
@@ -87,7 +87,7 @@ function PANEL:Init()
 		self.Button:Remove()
 	end
 
-	self.Button = vgui.Create("XPCheckBox", self)
+	self.Button = vgui.Create("OFCheckBox", self)
 	self.Button.OnChange = function(_, val)
 		self:OnChange(val)
 	end
@@ -120,4 +120,4 @@ function PANEL:PerformLayout()
 	self.Label:SetPos(x + self.Button:GetWide() + 9, 0)
 end
 
-derma.DefineControl("XPCheckBoxLabel", "", PANEL, "DCheckBoxLabel")
+derma.DefineControl("OFCheckBoxLabel", "", PANEL, "DCheckBoxLabel")

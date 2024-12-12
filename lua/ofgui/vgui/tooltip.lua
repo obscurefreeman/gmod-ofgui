@@ -115,4 +115,4 @@ function PANEL:Close()
 	self:Remove()
 end
 
-derma.DefineControl("XPTooltip", "", PANEL, "DLabel")
+derma.DefineControl("OFTooltip", "", PANEL, "DLabel")

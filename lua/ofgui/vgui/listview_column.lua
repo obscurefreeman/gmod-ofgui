@@ -18,7 +18,7 @@ Derma_Hook(PANEL, "ApplySchemeSettings", "Scheme", "ListViewColumn")
 Derma_Hook(PANEL, "PerformLayout", "Layout", "ListViewColumn")
 
 function PANEL:Init()
-	self.Header = vgui.Create("XPButton", self)
+	self.Header = vgui.Create("OFButton", self)
 
 	local id = 0
 	self.Header.Paint = function(pan, w, h)
@@ -99,7 +99,7 @@ function PANEL:SetWidth(iSize)
 	return iSize
 end
 
-derma.DefineControl("XPListView_Column", "", PANEL, "Panel")
+derma.DefineControl("OFListView_Column", "", PANEL, "Panel")
 
 --[[
 	Column Plain
@@ -109,4 +109,4 @@ local PANEL = {}
 
 function PANEL:DoClick() end
 
-derma.DefineControl("XPListView_ColumnPlain", "", PANEL, "DListView_Column")
+derma.DefineControl("OFListView_ColumnPlain", "", PANEL, "DListView_Column")

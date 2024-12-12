@@ -29,4 +29,4 @@ function PANEL:Paint(w, h)
 	return true
 end
 
-derma.DefineControl("XPScrollBarGrip", "", PANEL, "DPanel")
+derma.DefineControl("OFScrollBarGrip", "", PANEL, "DPanel")

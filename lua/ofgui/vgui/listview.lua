@@ -31,7 +31,7 @@ function PANEL:Init()
 
 	self.pnlCanvas = vgui.Create("EditablePanel", self.pnlCanvasCanvas)
 
-	self.VBar = vgui.Create("XPScrollBar", self)
+	self.VBar = vgui.Create("OFScrollBar", self)
 end
 
 function PANEL:Paint(w, h)
@@ -61,9 +61,9 @@ function PANEL:AddColumn(strName, iPosition)
 	local pColumn = nil
 
 	if self.m_bSortable then
-		pColumn = vgui.Create("XPListView_Column", self)
+		pColumn = vgui.Create("OFListView_Column", self)
 	else
-		pColumn = vgui.Create("XPListView_ColumnPlain", self)
+		pColumn = vgui.Create("OFListView_ColumnPlain", self)
 	end
 
 	pColumn:SetName(strName)
@@ -240,7 +240,7 @@ function PANEL:AddLine(...)
 	self:SetDirty(true)
 	self:InvalidateLayout()
 
-	local line = vgui.Create("XPListView_Line", self.pnlCanvas)
+	local line = vgui.Create("OFListView_Line", self.pnlCanvas)
 	local id = table.insert(self.Lines, line)
 
 	line:SetListView(self)
@@ -460,4 +460,4 @@ function PANEL:SizeToContents()
 	self:SetHeight(self.pnlCanvas:GetTall() + self:GetHeaderHeight())
 end
 
-derma.DefineControl("XPListView", "", PANEL, "DPanel")
+derma.DefineControl("OFListView", "", PANEL, "DPanel")

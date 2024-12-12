@@ -16,7 +16,7 @@ function PANEL:Init()
 		self:InvalidateParent()
 	end
 
-	self.VBar = vgui.Create("XPScrollBar", self)
+	self.VBar = vgui.Create("OFScrollBar", self)
 	self.VBar:Dock(RIGHT)
 
 	self:SetPadding(0)
@@ -106,4 +106,4 @@ function PANEL:Clear()
 	return self.pnlCanvas:Clear()
 end
 
-derma.DefineControl("XPScrollPanel", "", PANEL, "DPanel")
+derma.DefineControl("OFScrollPanel", "", PANEL, "DPanel")

@@ -67,7 +67,7 @@ function PANEL:Init()
 	self:SetFont("ofgui_tiny")
 	self:SetTextColor(color_white)
 
-	self:SetTooltipPanelOverride("XPTooltip")
+	self:SetTooltipPanelOverride("OFTooltip")
 end
 
 function PANEL:PerformLayout()
@@ -116,7 +116,7 @@ function PANEL:OpenMenu(pControlOpener)
 		self.Menu = nil
 	end
 
-	self.Menu = vgui.Create("XPMenu", self)
+	self.Menu = vgui.Create("OFMenu", self)
 
 	if self:GetSortItems() then
 		local sorted = {}
@@ -165,4 +165,4 @@ function PANEL:OnDepressed()
 	OFGUI.PlaySound(OFGUI.ButtonClickSound)
 end
 
-derma.DefineControl("XPComboBox", "", PANEL, "DComboBox")
+derma.DefineControl("OFComboBox", "", PANEL, "DComboBox")

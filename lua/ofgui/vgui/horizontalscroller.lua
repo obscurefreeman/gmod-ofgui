@@ -49,12 +49,12 @@ function PANEL:Init()
 
 	self:SetOverlap(-4)
 
-	self.btnLeft = vgui.Create("XPButton", self)
+	self.btnLeft = vgui.Create("OFButton", self)
 	self.btnLeft.PaintOver = function(panel, w, h)
 		draw.SimpleText("<", "ofgui_big", w * 0.5, h * 0.5 - 2, OFGUI.HorizontalScrollerArrowColor, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
 	end
 
-	self.btnRight = vgui.Create("XPButton", self)
+	self.btnRight = vgui.Create("OFButton", self)
 	self.btnRight.PaintOver = function(panel, w, h)
 		draw.SimpleText(">", "ofgui_big", w * 0.5, h * 0.5 - 2, OFGUI.HorizontalScrollerArrowColor, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
 	end
@@ -177,4 +177,4 @@ end
 
 function PANEL:OnDragModified() end
 
-derma.DefineControl("XPHorizontalScroller", "", PANEL, "Panel")
+derma.DefineControl("OFHorizontalScroller", "", PANEL, "Panel")

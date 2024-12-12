@@ -10,7 +10,7 @@ function PANEL:Init()
 	self:SetTextColor(Color(10, 10, 10))
 	self:SetChecked(false)
 
-	self:SetTooltipPanelOverride("XPTooltip")
+	self:SetTooltipPanelOverride("OFTooltip")
 end
 
 function PANEL:SetSubMenu(menu)
@@ -116,4 +116,4 @@ function PANEL:PerformLayout()
 	DButton.PerformLayout(self)
 end
 
-derma.DefineControl("XPMenuOption", "", PANEL, "XPButton")
+derma.DefineControl("OFMenuOption", "", PANEL, "OFButton")

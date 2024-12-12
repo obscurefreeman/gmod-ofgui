@@ -13,7 +13,7 @@ function PANEL:Init()
 
 	self.LastThink = 0
 
-	self.btnGrip = vgui.Create("XPScrollBarGrip", self)
+	self.btnGrip = vgui.Create("OFScrollBarGrip", self)
 
 	self:SetSize(16, 15)
 	self:SetHideButtons(false)
@@ -192,4 +192,4 @@ function PANEL:PerformLayout()
 	self.btnGrip:SetSize(wide, barSize)
 end
 
-derma.DefineControl("XPScrollBar", "A Scrollbar", PANEL, "Panel")
+derma.DefineControl("OFScrollBar", "A Scrollbar", PANEL, "Panel")

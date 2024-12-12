@@ -11,7 +11,7 @@ function PANEL:AddItem(item)
 end
 
 function PANEL:Add(name)
-	local cat = vgui.Create("XPCollapsibleCategory", self)
+	local cat = vgui.Create("OFCollapsibleCategory", self)
 	cat:SetLabel(name)
 	cat:SetList(self)
 
@@ -31,4 +31,4 @@ function PANEL:UnselectAll()
 	end
 end
 
-derma.DefineControl("XPCategoryList", "", PANEL, "XPScrollPanel")
+derma.DefineControl("OFCategoryList", "", PANEL, "OFScrollPanel")

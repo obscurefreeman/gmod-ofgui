@@ -1,5 +1,5 @@
 --[[
-	XPTab
+	OFTab
 ]]
 
 local PANEL = {}
@@ -114,10 +114,10 @@ function PANEL:DoRightClick()
 	tabs:Open()
 end
 
-derma.DefineControl("XPTab", "", PANEL, "DButton")
+derma.DefineControl("OFTab", "", PANEL, "DButton")
 
 --[[
-	XPPropertySheet
+	OFPropertySheet
 ]]
 
 local PANEL = {}
@@ -131,7 +131,7 @@ AccessorFunc(PANEL, "m_bShowIcons", "ShowIcons")
 function PANEL:Init()
 	self:SetShowIcons(true)
 
-	self.tabScroller = vgui.Create("XPHorizontalScroller", self)
+	self.tabScroller = vgui.Create("OFHorizontalScroller", self)
 	self.tabScroller:SetTall(48)
 	self.tabScroller:SetOverlap(-2)
 	self.tabScroller:Dock(TOP)
@@ -159,7 +159,7 @@ end
 
 function PANEL:AddSheet(label, panel, material, noStretchX, noStretchY, tooltip)
 	if not IsValid(panel) then
-		ErrorNoHalt( "XPPropertySheet:AddSheet tried to add invalid panel!" )
+		ErrorNoHalt( "OFPropertySheet:AddSheet tried to add invalid panel!" )
 		debug.Trace()
 		return
 	end
@@ -167,7 +167,7 @@ function PANEL:AddSheet(label, panel, material, noStretchX, noStretchY, tooltip)
 	local sheet = {}
 	sheet.Name = label
 
-	sheet.Tab = vgui.Create( "XPTab", self )
+	sheet.Tab = vgui.Create( "OFTab", self )
 	sheet.Tab:SetTooltip(tooltip)
 	sheet.Tab:Setup(label, self, panel, material)
 
@@ -375,4 +375,4 @@ function PANEL:CloseTab(tab, bRemovePanelToo)
 	return pnl
 end
 
-derma.DefineControl("XPPropertySheet", "", PANEL, "Panel")
+derma.DefineControl("OFPropertySheet", "", PANEL, "Panel")

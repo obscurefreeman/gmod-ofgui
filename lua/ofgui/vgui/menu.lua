@@ -3,7 +3,7 @@ function OFGUI.Menu(parentMenu, parent)
 		CloseDermaMenus()
 	end
 
-	local xpMenu = vgui.Create("XPMenu", parent)
+	local xpMenu = vgui.Create("OFMenu", parent)
 	return xpMenu
 end
 
@@ -44,7 +44,7 @@ function PANEL:AddPanel(pnl)
 end
 
 function PANEL:AddOption(strText, funcFunction)
-	local pnl = vgui.Create("XPMenuOption", self)
+	local pnl = vgui.Create("OFMenuOption", self)
 	pnl:SetMenu(self)
 
 	pnl:SetText(strText)
@@ -102,7 +102,7 @@ function PANEL:AddSpacer(strText, funcFunction)
 end
 
 function PANEL:AddSubMenu(strText, funcFunction)
-	local pnl = vgui.Create("XPMenuOption", self)
+	local pnl = vgui.Create("OFMenuOption", self)
 	local SubMenu = pnl:AddSubMenu(strText, funcFunction)
 
 	pnl:SetText(strText)
@@ -272,4 +272,4 @@ function PANEL:HighlightItem(item)
 	end
 end
 
-derma.DefineControl("XPMenu", "", PANEL, "XPScrollPanel")
+derma.DefineControl("OFMenu", "", PANEL, "OFScrollPanel")

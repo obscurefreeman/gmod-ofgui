@@ -56,15 +56,20 @@ function PANEL:Paint(w, h)
     -- 绘制背景
     draw.RoundedBox(6, 0, 0, w, h, self.Color)
     
+    -- 计算文本高度
+    local titleHeight = draw.GetFontHeight("ofgui_medium")
+    local descHeight = draw.GetFontHeight("ofgui_tiny")
+    local totalTextHeight = titleHeight + descHeight + 5  -- 5是标题和描述之间的间距
+    
+    -- 计算整体文本块的起始Y坐标，使其垂直居中
+    local startY = (h - totalTextHeight) / 2
+    
+    -- 文本X坐标保持不变
+    local titleX = h + 10
+    
     -- 绘制标题和描述
-    local titleX = h + 10  -- 文字从图标右侧开始
-    local titleY = 10
-    
-    -- 绘制标题
-    draw.SimpleText(self.Title, "ofgui_medium", titleX, titleY, OFGUI.ButtonTextColor)
-    
-    -- 绘制描述（使用较小的字体）
-    draw.SimpleText(self.Description, "ofgui_tiny", titleX, titleY + 25, OFGUI.ButtonTextColor)
+    draw.SimpleText(self.Title, "ofgui_medium", titleX, startY, OFGUI.ButtonTextColor)
+    draw.SimpleText(self.Description, "ofgui_tiny", titleX, startY + titleHeight + 5, OFGUI.ButtonTextColor)
 end
 
 -- 继承原有按钮的声音效果

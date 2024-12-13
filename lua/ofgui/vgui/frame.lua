@@ -7,7 +7,7 @@ function PANEL:Init()
 
 	self.startTime = SysTime()
 
-	self:SetSize(ScrW() / 2, ScrH() / 2)
+	self:SetSize(ScrW()* 2 / 3, ScrH()* 2 / 3)
 	self:Center()
 
 	self:MakePopup()
@@ -43,13 +43,47 @@ function PANEL:Init()
 		draw.RoundedBox(4, 0, 0, w, h, bgColor)
 		
 		surface.SetFont("ofgui_medium")
+		local text = "x"
+		local tw, th = surface.GetTextSize(text)
 		surface.SetTextColor(255, 255, 255, 255)
-		surface.SetTextPos(w/2 - 4, h/2 - 6)
-		surface.DrawText("X")
+		surface.SetTextPos(w/2 - tw/2, h/2 - th/2)
+		surface.DrawText(text)
 	end
 	self.CloseButton.DoClick = function()
 		self:Close()
 	end
+
+	-- 在关闭按钮之前添加最大化按钮
+	self.MaximizeButton = vgui.Create("DButton", self.ControlButtons)
+	self.MaximizeButton:SetSize(24, 24)
+	self.MaximizeButton:Dock(RIGHT)
+	self.MaximizeButton:DockMargin(4, 4, 0, 4)
+	self.MaximizeButton:SetText("")
+	self.MaximizeButton.Paint = function(pnl, w, h)
+		local bgColor = pnl:IsHovered() and OFGUI.ClosePressColor or OFGUI.CloseColor
+		draw.RoundedBox(4, 0, 0, w, h, bgColor)
+		
+		surface.SetFont("ofgui_medium")
+		local text = self.Maximized and "❐" or "□"
+		local tw, th = surface.GetTextSize(text)
+		surface.SetTextColor(255, 255, 255, 255)
+		surface.SetTextPos(w/2 - tw/2, h/2 - th/2)
+		surface.DrawText(text)
+	end
+	
+	self.MaximizeButton.DoClick = function()
+		self:ToggleMaximize()
+	end
+
+	-- 存储原始尺寸和位置
+	self.OriginalSize = {
+		w = self:GetWide(),
+		h = self:GetTall(),
+		x = self:GetX(),
+		y = self:GetY()
+	}
+	
+	self.Maximized = false
 end
 
 function PANEL:SetNoRounded(bool)
@@ -116,6 +150,44 @@ function PANEL:Close()
 		pan:Remove()
 	end)
 	self:OnClose()
+end
+
+function PANEL:ToggleMaximize()
+	if self.Maximized then
+		self:Restore()
+	else
+		self:Maximize()
+	end
+end
+
+function PANEL:Maximize()
+	-- 保存当前尺寸和位置
+	self.OriginalSize = {
+		w = self:GetWide(),
+		h = self:GetTall(),
+		x = self:GetX(),
+		y = self:GetY()
+	}
+	
+	-- 设置为全屏尺寸
+	self:SetPos(0, 0)
+	self:SetSize(ScrW(), ScrH())
+	
+	self.Maximized = true
+	
+	-- 重新生成圆角遮罩
+	self.FirstInit = false
+end
+
+function PANEL:Restore()
+	-- 恢复原始尺寸和位置
+	self:SetSize(self.OriginalSize.w, self.OriginalSize.h)
+	self:SetPos(self.OriginalSize.x, self.OriginalSize.y)
+	
+	self.Maximized = false
+	
+	-- 重新生成圆角遮罩
+	self.FirstInit = false
 end
 
 derma.DefineControl("OFFrame", "", PANEL, "EditablePanel")

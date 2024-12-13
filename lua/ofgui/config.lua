@@ -55,15 +55,6 @@ OFGUI.TextEntryIndicatorFocusedColor = Color(0, 255, 0)
 OFGUI.ScrollBarGripColor = Color(200, 200, 200, 120)
 OFGUI.ScrollBarBGColor = Color(10, 10, 10)
 
--- Listview
-OFGUI.ListViewLineColor = Color(60, 60, 60, 90)
-OFGUI.ListViewLineHoverColor = Color(100, 100, 100, 100)
-OFGUI.ListViewTextColor = Color(160, 160, 160)
-OFGUI.ListViewSelectedTextColor = Color(255, 255, 255)
-
-OFGUI.ListViewLineSelectedColor = Color(50, 120, 50,200)
-OFGUI.ListViewLineSelectedHoverColor = Color(50, 150, 50, 250)
-
 -- PropertySheet
 OFGUI.PSTabInactiveColor = Color(121, 121, 121, 84)
 OFGUI.PSTabActiveColor = Color(217, 217, 217, 84)

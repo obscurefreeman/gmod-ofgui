@@ -29,12 +29,12 @@ function PANEL:Init()
 	-- 创建控制按钮容器
 	self.ControlButtons = vgui.Create("DPanel", self.TopBar)
 	self.ControlButtons:Dock(RIGHT)
-	self.ControlButtons:SetWide(70)
+	self.ControlButtons:SetWide(118)
 	self.ControlButtons.Paint = function() end
 
 	-- 创建关闭按钮
 	self.CloseButton = vgui.Create("DButton", self.ControlButtons)
-	self.CloseButton:SetSize(24, 24)
+	self.CloseButton:SetSize(48, 24)
 	self.CloseButton:Dock(RIGHT)
 	self.CloseButton:DockMargin(4, 4, 4, 4)
 	self.CloseButton:SetText("")
@@ -42,7 +42,7 @@ function PANEL:Init()
 		local bgColor = pnl:IsHovered() and OFGUI.ClosePressColor or OFGUI.CloseColor
 		draw.RoundedBox(4, 0, 0, w, h, bgColor)
 		
-		surface.SetFont("ofgui_medium")
+		surface.SetFont("HudDefault")
 		local text = "x"
 		local tw, th = surface.GetTextSize(text)
 		surface.SetTextColor(255, 255, 255, 255)
@@ -55,15 +55,15 @@ function PANEL:Init()
 
 	-- 在关闭按钮之前添加最大化按钮
 	self.MaximizeButton = vgui.Create("DButton", self.ControlButtons)
-	self.MaximizeButton:SetSize(24, 24)
+	self.MaximizeButton:SetSize(48, 24)
 	self.MaximizeButton:Dock(RIGHT)
 	self.MaximizeButton:DockMargin(4, 4, 0, 4)
 	self.MaximizeButton:SetText("")
 	self.MaximizeButton.Paint = function(pnl, w, h)
-		local bgColor = pnl:IsHovered() and OFGUI.ClosePressColor or OFGUI.CloseColor
+		local bgColor = pnl:IsHovered() and OFGUI.MaximizePressColor or OFGUI.MaximizeColor
 		draw.RoundedBox(4, 0, 0, w, h, bgColor)
 		
-		surface.SetFont("ofgui_medium")
+		surface.SetFont("HudDefault")
 		local text = self.Maximized and "❐" or "□"
 		local tw, th = surface.GetTextSize(text)
 		surface.SetTextColor(255, 255, 255, 255)
@@ -103,9 +103,13 @@ function PANEL:Paint(w, h)
 		Derma_DrawBackgroundBlur(self, self.startTime)
 	end
 
-	if not self.FirstInit then
+	-- 修改这里，根据最大化状态决定圆角值
+	local currentRounded = self.Maximized and 0 or self.Rounded
+
+	if not self.FirstInit or self.LastRounded != currentRounded then
 		self.FirstInit = true
-		self.PolyMask = surface.PrecacheRoundedRect(0, 0, self:GetWide(), self:GetTall(), self.Rounded, 16)
+		self.LastRounded = currentRounded
+		self.PolyMask = surface.PrecacheRoundedRect(0, 0, self:GetWide(), self:GetTall(), currentRounded, 16)
 	end
 
 	EZMASK.DrawWithMask(function()
@@ -115,7 +119,8 @@ function PANEL:Paint(w, h)
 		if self.FrameBlur then
 			surface.DrawPanelBlur(self, 6)
 		end
-		draw.RoundedBox(self.Rounded, 0, 0, w, h, OFGUI.BGColor)
+		-- 使用当前圆角值
+		draw.RoundedBox(currentRounded, 0, 0, w, h, OFGUI.BGColor)
 
 		surface.SetDrawColor(OFGUI.HeaderLineColor)
 		surface.DrawLine(8, self.TopBar:GetTall() - 1, w - 8, self.TopBar:GetTall() - 1)

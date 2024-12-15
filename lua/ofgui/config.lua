@@ -16,6 +16,8 @@ OFGUI.ButtonHoverSound = "ofgui/submenu/submenu_dropdown_rollover_01.wav"
 OFGUI.BGColor = Color(10, 10, 10, 200)
 OFGUI.CloseHoverColor = Color(238, 62, 97, 220)
 OFGUI.ClosePressColor = Color(208, 52, 77, 155)
+OFGUI.MaximizeColor = Color(123, 123, 123, 160)
+OFGUI.MaximizePressColor = Color(255, 200, 100, 155)
 OFGUI.CloseColor = Color(123, 123, 123, 160)
 OFGUI.HeaderLineColor = Color(200, 200, 200, 120)
 

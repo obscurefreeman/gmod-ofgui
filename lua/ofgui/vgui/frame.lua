@@ -42,7 +42,7 @@ function PANEL:Init()
 		local bgColor = pnl:IsHovered() and OFGUI.ClosePressColor or OFGUI.CloseColor
 		draw.RoundedBox(4, 0, 0, w, h, bgColor)
 		
-		surface.SetFont("HudDefault")
+		surface.SetFont("ofgui_big")
 		local text = "x"
 		local tw, th = surface.GetTextSize(text)
 		surface.SetTextColor(255, 255, 255, 255)
@@ -63,8 +63,8 @@ function PANEL:Init()
 		local bgColor = pnl:IsHovered() and OFGUI.MaximizePressColor or OFGUI.MaximizeColor
 		draw.RoundedBox(4, 0, 0, w, h, bgColor)
 		
-		surface.SetFont("HudDefault")
-		local text = self.Maximized and "❐" or "□"
+		surface.SetFont("ofgui_big")
+		local text = self.Maximized and "❐" or "▭"
 		local tw, th = surface.GetTextSize(text)
 		surface.SetTextColor(255, 255, 255, 255)
 		surface.SetTextPos(w/2 - tw/2, h/2 - th/2)

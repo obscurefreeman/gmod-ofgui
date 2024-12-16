@@ -98,6 +98,9 @@ function PANEL:Init()
     -- 添加动画对象
     self.GlowAnimation = EasyAnim.NewAnimation(0.3, EASE_OutQuart)
     self.GlowAnimation:SetDuration(0.3)
+
+    self.TitleLabel:SetTextColor(Color(255, 255, 255, 255))  -- 设置标题颜色为白色
+    self.DescriptionLabel:SetTextColor(Color(255, 255, 255, 255))  -- 设置描述颜色为白色
 end
 
 function PANEL:SetIcon(material)

@@ -33,7 +33,7 @@ function PANEL:Init()
 	self.ControlButtons.Paint = function() end
 
 	-- 创建关闭按钮
-	self.CloseButton = vgui.Create("DButton", self.ControlButtons)
+	self.CloseButton = vgui.Create("OFButton", self.ControlButtons)
 	self.CloseButton:SetSize(48, 24)
 	self.CloseButton:Dock(RIGHT)
 	self.CloseButton:DockMargin(4, 4, 4, 4)
@@ -54,7 +54,7 @@ function PANEL:Init()
 	end
 
 	-- 在关闭按钮之前添加最大化按钮
-	self.MaximizeButton = vgui.Create("DButton", self.ControlButtons)
+	self.MaximizeButton = vgui.Create("OFButton", self.ControlButtons)
 	self.MaximizeButton:SetSize(48, 24)
 	self.MaximizeButton:Dock(RIGHT)
 	self.MaximizeButton:DockMargin(4, 4, 0, 4)

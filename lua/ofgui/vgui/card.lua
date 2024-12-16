@@ -69,6 +69,20 @@ function PANEL:Init()
     -- 创建图标
     self.Icon = vgui.Create("DImage", self)
     
+    -- 创建标题和描述的 DLabel
+    self.TitleLabel = vgui.Create("DLabel", self)
+    self.DescriptionLabel = vgui.Create("DLabel", self)
+    
+    -- 设置 DLabel 的默认属性
+    self.TitleLabel:SetFont("ofgui_medium")
+    self.TitleLabel:SetText("")
+    self.TitleLabel:SetContentAlignment(5)  -- 居中对齐
+
+    self.DescriptionLabel:SetFont("ofgui_tiny")
+    self.DescriptionLabel:SetText("")
+    self.DescriptionLabel:SetWrap(true)  -- 允许换行
+    self.DescriptionLabel:SetContentAlignment(5)  -- 居中对齐
+    
     -- 设置默认属性
     self.Title = ""
     self.Description = ""
@@ -93,11 +107,11 @@ function PANEL:SetIcon(material)
 end
 
 function PANEL:SetTitle(text)
-    self.Title = text
+    self.TitleLabel:SetText(text)
 end
 
 function PANEL:SetDescription(text)
-    self.Description = text
+    self.DescriptionLabel:SetText(text)
 end
 
 function PANEL:SetBorderColor(color)
@@ -111,14 +125,17 @@ function PANEL:PerformLayout(w, h)
     self.Icon:SetPos(sidePadding, self.IconPadding)  -- 图标左对齐并保持间距
     self.Icon:SetSize(iconSize, iconSize)
 
-    -- 计算标题和描述的位置
+    -- 计算标题和描��的位置
     local titleHeight = draw.GetFontHeight("ofgui_medium")
     local descHeight = draw.GetFontHeight("ofgui_tiny")
     local startY = self.IconPadding + iconSize + 5  -- 图标下方的起始Y坐标
 
-    -- 计算标题和描述的居中位置
-    self.TitleX = (w - surface.GetTextSize(self.Title, "ofgui_medium")) / 2
-    self.DescX = (w - surface.GetTextSize(self.Description, "ofgui_tiny")) / 2
+    -- 设置标题和描述的位置和大小
+    self.TitleLabel:SetSize(w, titleHeight)
+    self.TitleLabel:SetPos(0, startY)  -- 标题位置
+
+    self.DescriptionLabel:SetSize(w, h - startY - titleHeight - 5)  -- 设置描述的高度以容纳多行
+    self.DescriptionLabel:SetPos(0, startY + titleHeight + 5)  -- 描述位置
 end
 
 function PANEL:Paint(w, h)
@@ -143,17 +160,9 @@ function PANEL:Paint(w, h)
     -- 绘制描边
     DrawRoundedBoxEx(self.CornerRadius, 0, 0, w, h, self.BorderColor, true, true, true, true)
     
-    -- 计算标题和描述的位置
-    local titleWidth, titleHeight = surface.GetTextSize(self.Title, "ofgui_medium")
-    local descWidth, descHeight = surface.GetTextSize(self.Description, "ofgui_tiny")
-    local totalTextHeight = titleHeight + descHeight
-    local titleX = (w - titleWidth) / 2  -- 标题居中
-    local descX = (w - descWidth) / 2  -- 描述居中
-    local startY = self.IconPadding + self.Icon:GetTall() + (h - self.IconPadding - self.Icon:GetTall() - totalTextHeight) / 2  -- 图标下方的起始Y坐标
-
     -- 绘制标题和描述
-    draw.SimpleText(self.Title, "ofgui_medium", titleX, startY, OFGUI.ButtonTextColor)
-    draw.SimpleText(self.Description, "ofgui_tiny", descX, startY + titleHeight + 5, OFGUI.ButtonTextColor)
+    self.TitleLabel:PaintManual()  -- 手动绘制标题
+    self.DescriptionLabel:PaintManual()  -- 手动绘制描述
 end
 
 -- 继承原有按钮的声音效果

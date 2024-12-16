@@ -74,12 +74,12 @@ end
 
 -- 继承原有按钮的声音效果
 function PANEL:OnDepressed()
-    OFGUI.PlaySound(OFGUI.NPCClickSound)
+    OFGUI.PlaySound(OFGUI.ButtonClickSound)
 end
 
 function PANEL:OnCursorEntered()
     if self:GetDisabled() then return end
-    OFGUI.PlaySound(OFGUI.NPCHoverSound)
+    OFGUI.PlaySound(OFGUI.ButtonHoverSound)
 end
 
 function PANEL:SetAccentColor(clr)

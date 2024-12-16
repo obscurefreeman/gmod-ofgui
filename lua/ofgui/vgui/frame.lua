@@ -57,7 +57,7 @@ function PANEL:Init()
 
 	self.CloseButton.DoClick = function()
 		self:Close()
-		OFGUI.PlaySound(OFGUI.CloseClickSound)
+		OFGUI.PlaySound(OFGUI.ButtonClickSound)
 	end
 
 	-- 在关闭按钮之前添加最大化按钮
@@ -85,7 +85,7 @@ function PANEL:Init()
 	
 	self.MaximizeButton.DoClick = function()
 		self:ToggleMaximize()
-		OFGUI.PlaySound(OFGUI.MaximizeClickSound)
+		OFGUI.PlaySound(OFGUI.ButtonClickSound)
 	end
 
 	-- 存储原始尺寸和位置

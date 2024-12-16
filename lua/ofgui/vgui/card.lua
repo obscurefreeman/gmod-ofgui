@@ -66,9 +66,10 @@ function PANEL:Init()
     self:SetDoubleClickingEnabled(false)
     self:SetExpensiveShadow(1, ColorAlpha(color_black, 140))
 
-    -- 创建图标
+    -- 创建带有内边距的图标
     self.Icon = vgui.Create("DImage", self)
-    
+    self.IconPadding = 10  -- 设置图标的内边距
+
     -- 创建标题和描述的 DLabel
     self.TitleLabel = vgui.Create("DLabel", self)
     self.DescriptionLabel = vgui.Create("DLabel", self)
@@ -82,13 +83,13 @@ function PANEL:Init()
     self.DescriptionLabel:SetText("")
     self.DescriptionLabel:SetWrap(true)  -- 允许换行
     self.DescriptionLabel:SetContentAlignment(5)  -- 居中对齐
+    self.DescriptionLabel:SetAutoStretchVertical(true)  -- 添加此行以允许竖直方向自适应
     
     -- 设置默认属性
     self.Title = ""
     self.Description = ""
     self.BorderColor = Color(255, 255, 255, 100)  -- 默认描边颜色
     self.InnerGlowAlpha = 0  -- 内阴影透明度
-    self.IconPadding = 8  -- 图标与边缘的间距
     self.CornerRadius = 6  -- 添加统一的圆角半径
     
     -- 默认大小
@@ -120,22 +121,22 @@ end
 
 function PANEL:PerformLayout(w, h)
     -- 设置图标的位置和大小
-    local sidePadding = 10  -- 设置两侧的间距
-    local iconSize = w - sidePadding * 2
-    self.Icon:SetPos(sidePadding, self.IconPadding)  -- 图标左对齐并保持间距
+    local iconSize = w - self.IconPadding * 2
+    self.Icon:SetPos(self.IconPadding, self.IconPadding)  -- 图标左对齐并保持内边距
     self.Icon:SetSize(iconSize, iconSize)
 
-    -- 计算标题和描��的位置
+    -- 设置标题和描述的位置和大小
     local titleHeight = draw.GetFontHeight("ofgui_medium")
     local descHeight = draw.GetFontHeight("ofgui_tiny")
-    local startY = self.IconPadding + iconSize + 5  -- 图标下方的起始Y坐标
+    local startY = self.IconPadding + iconSize + self.IconPadding  -- 图标下方的起始Y坐标
 
-    -- 设置标题和描述的位置和大小
     self.TitleLabel:SetSize(w, titleHeight)
     self.TitleLabel:SetPos(0, startY)  -- 标题位置
 
-    self.DescriptionLabel:SetSize(w, h - startY - titleHeight - 5)  -- 设置描述的高度以容纳多行
-    self.DescriptionLabel:SetPos(0, startY + titleHeight + 5)  -- 描述位置
+    -- 修改描述的宽度和位置以添加左右间距
+    local padding = 10  -- 设置左右间距
+    self.DescriptionLabel:SetSize(w - padding * 2, h - startY - self.IconPadding)  -- 移除此行以不限制描述的高度
+    self.DescriptionLabel:SetPos(padding, startY + titleHeight + 5)  -- 描述位置
 end
 
 function PANEL:Paint(w, h)

@@ -33,7 +33,7 @@ function PANEL:Init()
 	self.ControlButtons.Paint = function() end
 
 	-- 创建关闭按钮
-	self.CloseButton = vgui.Create("OFButton", self.ControlButtons)
+	self.CloseButton = vgui.Create("DButton", self.ControlButtons)
 	self.CloseButton:SetSize(48, 24)
 	self.CloseButton:Dock(RIGHT)
 	self.CloseButton:DockMargin(4, 4, 4, 4)
@@ -49,12 +49,19 @@ function PANEL:Init()
 		surface.SetTextPos(w/2 - tw/2, h/2 - th/2)
 		surface.DrawText(text)
 	end
+
+	-- 添加鼠标悬停事件
+	self.CloseButton.OnCursorEntered = function()
+		OFGUI.PlaySound(OFGUI.ButtonHoverSound) -- 播放悬停声音
+	end
+
 	self.CloseButton.DoClick = function()
 		self:Close()
+		OFGUI.PlaySound(OFGUI.CloseClickSound)
 	end
 
 	-- 在关闭按钮之前添加最大化按钮
-	self.MaximizeButton = vgui.Create("OFButton", self.ControlButtons)
+	self.MaximizeButton = vgui.Create("DButton", self.ControlButtons)
 	self.MaximizeButton:SetSize(48, 24)
 	self.MaximizeButton:Dock(RIGHT)
 	self.MaximizeButton:DockMargin(4, 4, 0, 4)
@@ -70,9 +77,15 @@ function PANEL:Init()
 		surface.SetTextPos(w/2 - tw/2, h/2 - th/2)
 		surface.DrawText(text)
 	end
+
+	-- 添加鼠标悬停事件
+	self.MaximizeButton.OnCursorEntered = function()
+		OFGUI.PlaySound(OFGUI.ButtonHoverSound) -- 播放悬停声音
+	end
 	
 	self.MaximizeButton.DoClick = function()
 		self:ToggleMaximize()
+		OFGUI.PlaySound(OFGUI.MaximizeClickSound)
 	end
 
 	-- 存储原始尺寸和位置

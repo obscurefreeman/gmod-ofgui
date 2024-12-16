@@ -7,7 +7,12 @@ OFGUI.SoundEnabled = true
 -- Button
 OFGUI.ButtonClickSound = "ofgui/sidemenu/sidemenu_click_01.wav"
 OFGUI.ButtonHoverSound = "ofgui/submenu/submenu_dropdown_rollover_01.wav"
-
+OFGUI.NPCClickSound = "ofgui/ui_npc_click.wav"
+OFGUI.NPCHoverSound = "ofgui/ui_npc_hover.wav"
+OFGUI.CardClickSound = "ofgui/ui_card_click.wav"
+OFGUI.CardHoverSound = "ofgui/ui_card_hover.wav"
+OFGUI.CloseClickSound = "ofgui/sidemenu/sidemenu_click_01.wav"
+OFGUI.MaximizeClickSound = "ofgui/sidemenu/sidemenu_click_01.wav"
 --[[
 	Colors
 ]]

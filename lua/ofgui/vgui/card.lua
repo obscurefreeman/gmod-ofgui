@@ -171,12 +171,12 @@ end
 
 -- 继承原有按钮的声音效果
 function PANEL:OnDepressed()
-    OFGUI.PlaySound(OFGUI.ButtonClickSound)
+    OFGUI.PlaySound(OFGUI.CardClickSound)
 end
 
 function PANEL:OnCursorEntered()
     if self:GetDisabled() then return end
-    OFGUI.PlaySound(OFGUI.ButtonHoverSound)
+    OFGUI.PlaySound(OFGUI.CardHoverSound)
 end
 
 -- 添加设置圆角半径的方法

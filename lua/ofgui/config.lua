@@ -11,11 +11,14 @@ OFGUI.itemClickSound = "ofgui/ui_item_click.wav"
 OFGUI.itemHoverSound = "ofgui/ui_item_hover.wav"
 OFGUI.CardClickSound = "ofgui/ui_card_click.wav"
 OFGUI.CardHoverSound = "ofgui/ui_card_hover.wav"
-OFGUI.CloseClickSound = "ofgui/sidemenu/sidemenu_click_01.wav"
-OFGUI.MaximizeClickSound = "ofgui/sidemenu/sidemenu_click_01.wav"
+-- OFGUI.CloseClickSound = "ofgui/sidemenu/sidemenu_click_01.wav"
+-- OFGUI.MaximizeClickSound = "ofgui/sidemenu/sidemenu_click_01.wav"
 --[[
 	Colors
 ]]
+
+-- Scale
+OFGUI.ScreenScale = ScrH() / 1080
 
 -- Frame
 OFGUI.BGColor = Color(10, 10, 10, 200)

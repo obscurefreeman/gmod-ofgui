@@ -68,7 +68,7 @@ function PANEL:Init()
 
     -- 创建带有内边距的图标
     self.Icon = vgui.Create("DImage", self)
-    self.IconPadding = 10  -- 设置图标的内边距
+    self.IconPadding = 10 * OFGUI.ScreenScale  -- 设置图标的内边距
 
     -- 创建标题和描述的 DLabel
     self.TitleLabel = vgui.Create("DLabel", self)
@@ -137,7 +137,7 @@ function PANEL:PerformLayout(w, h)
     self.TitleLabel:SetPos(0, startY)  -- 标题位置
 
     -- 修改描述的宽度和位置以添加左右间距
-    local padding = 10  -- 设置左右间距
+    local padding = 10 * OFGUI.ScreenScale  -- 设置左右间距
     self.DescriptionLabel:SetSize(w - padding * 2, h - startY - self.IconPadding)  -- 移除此行以不限制描述的高度
     self.DescriptionLabel:SetPos(padding, startY + titleHeight + 5)  -- 描述位置
 end

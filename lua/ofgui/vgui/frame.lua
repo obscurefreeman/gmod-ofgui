@@ -7,7 +7,7 @@ function PANEL:Init()
 
 	self.startTime = SysTime()
 
-	self:SetSize(ScrW()* 2 / 3, ScrH()* 2 / 3)
+	self:SetSize(1280 * OFGUI.ScreenScale, 720 * OFGUI.ScreenScale)
 	self:Center()
 
 	self:MakePopup()
@@ -23,24 +23,24 @@ function PANEL:Init()
 	-- 创建标题栏面板
 	self.TopBar = vgui.Create("DPanel", self)
 	self.TopBar:Dock(TOP)
-	self.TopBar:SetTall(32)
+	self.TopBar:SetTall(32 * OFGUI.ScreenScale)
 	self.TopBar.Paint = function() end
 
 	-- 创建控制按钮容器
 	self.ControlButtons = vgui.Create("DPanel", self.TopBar)
 	self.ControlButtons:Dock(RIGHT)
-	self.ControlButtons:SetWide(118)
+	self.ControlButtons:SetWide(118 * OFGUI.ScreenScale)
 	self.ControlButtons.Paint = function() end
 
 	-- 创建关闭按钮
 	self.CloseButton = vgui.Create("DButton", self.ControlButtons)
-	self.CloseButton:SetSize(48, 24)
+	self.CloseButton:SetSize(48 * OFGUI.ScreenScale, 24 * OFGUI.ScreenScale)
 	self.CloseButton:Dock(RIGHT)
-	self.CloseButton:DockMargin(4, 4, 4, 4)
+	self.CloseButton:DockMargin(4 * OFGUI.ScreenScale, 4 * OFGUI.ScreenScale, 4 * OFGUI.ScreenScale, 4 * OFGUI.ScreenScale)
 	self.CloseButton:SetText("")
 	self.CloseButton.Paint = function(pnl, w, h)
 		local bgColor = pnl:IsHovered() and OFGUI.ClosePressColor or OFGUI.CloseColor
-		draw.RoundedBox(4, 0, 0, w, h, bgColor)
+		draw.RoundedBox(4 * OFGUI.ScreenScale, 0, 0, w, h, bgColor)
 		
 		surface.SetFont("ofgui_big")
 		local text = "x"
@@ -62,13 +62,13 @@ function PANEL:Init()
 
 	-- 在关闭按钮之前添加最大化按钮
 	self.MaximizeButton = vgui.Create("DButton", self.ControlButtons)
-	self.MaximizeButton:SetSize(48, 24)
+	self.MaximizeButton:SetSize(48 * OFGUI.ScreenScale, 24 * OFGUI.ScreenScale)
 	self.MaximizeButton:Dock(RIGHT)
-	self.MaximizeButton:DockMargin(4, 4, 0, 4)
+	self.MaximizeButton:DockMargin(4 * OFGUI.ScreenScale, 4 * OFGUI.ScreenScale, 0, 4 * OFGUI.ScreenScale)
 	self.MaximizeButton:SetText("")
 	self.MaximizeButton.Paint = function(pnl, w, h)
 		local bgColor = pnl:IsHovered() and OFGUI.MaximizePressColor or OFGUI.MaximizeColor
-		draw.RoundedBox(4, 0, 0, w, h, bgColor)
+		draw.RoundedBox(4 * OFGUI.ScreenScale, 0, 0, w, h, bgColor)
 		
 		surface.SetFont("ofgui_big")
 		local text = self.Maximized and "❐" or "▭"
@@ -136,8 +136,8 @@ function PANEL:Paint(w, h)
 		draw.RoundedBox(currentRounded, 0, 0, w, h, OFGUI.BGColor)
 
 		surface.SetDrawColor(OFGUI.HeaderLineColor)
-		surface.DrawLine(8, self.TopBar:GetTall() - 1, w - 8, self.TopBar:GetTall() - 1)
-		surface.DrawLine(8, self.TopBar:GetTall(), w - 8, self.TopBar:GetTall())
+		surface.DrawLine(8 * OFGUI.ScreenScale, self.TopBar:GetTall() - 1 * OFGUI.ScreenScale, w - 8 * OFGUI.ScreenScale, self.TopBar:GetTall() - 1 * OFGUI.ScreenScale)
+		surface.DrawLine(8 * OFGUI.ScreenScale, self.TopBar:GetTall(), w - 8 * OFGUI.ScreenScale, self.TopBar:GetTall())
 	end)
 end
 
@@ -152,7 +152,7 @@ function PANEL:SetTitle(text)
 	self.Title:SizeToContents()
 
 	self.Title:Dock(TOP)
-	self.Title:DockMargin(6, 2, 6, 2)
+	self.Title:DockMargin(6 * OFGUI.ScreenScale, 2 * OFGUI.ScreenScale, 6 * OFGUI.ScreenScale, 2 * OFGUI.ScreenScale)
 end
 
 function PANEL:OnRemove()

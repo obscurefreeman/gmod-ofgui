@@ -21,6 +21,11 @@ function PANEL:Init()
     
     -- 默认大小
     self:SetSize(300, 64)
+
+    -- 创建徽章元素
+    self.Badge = vgui.Create("DImage", self)
+    self.Badge:SetSize(23 * OFGUI.ScreenScale, 23 * OFGUI.ScreenScale)
+    self.Badge:SetVisible(false) -- 默认隐藏徽章
 end
 
 function PANEL:SetModel(mdl)
@@ -33,6 +38,15 @@ end
 
 function PANEL:SetDescription(text)
     self.Description = text
+end
+
+function PANEL:SetBadge(image)
+    if image then
+        self.Badge:SetImage(image)
+        self.Badge:SetVisible(true)
+    else
+        self.Badge:SetVisible(false)
+    end
 end
 
 function PANEL:PerformLayout(w, h)
@@ -59,17 +73,21 @@ function PANEL:Paint(w, h)
     -- 计算文本高度
     local titleHeight = draw.GetFontHeight("ofgui_medium")
     local descHeight = draw.GetFontHeight("ofgui_tiny")
-    local totalTextHeight = titleHeight + descHeight + 5  -- 5是标题和描述之间的间距
+    local totalTextHeight = titleHeight + descHeight + 5 * OFGUI.ScreenScale  -- 5是标题和描述之间的间距
+
+    if self.Badge:IsVisible() then
+        self.Badge:SetPos(h + 10 * OFGUI.ScreenScale, (h - totalTextHeight) / 2)
+    end
     
     -- 计算整体文本块的起始Y坐标，使其垂直居中
     local startY = (h - totalTextHeight) / 2
     
-    -- 文本X坐标保持不变
-    local titleX = h + 10
+    -- 文本X坐标调整
+    local titleX = (self.Badge:IsVisible() and self.Badge:GetWide() or 0) + h + 10 * OFGUI.ScreenScale
     
     -- 绘制标题和描述
     draw.SimpleText(self.Title, "ofgui_medium", titleX, startY, OFGUI.ButtonTextColor)
-    draw.SimpleText(self.Description, "ofgui_tiny", titleX, startY + titleHeight + 5, OFGUI.ButtonTextColor)
+    draw.SimpleText(self.Description, "ofgui_tiny", h + 10 * OFGUI.ScreenScale, startY + titleHeight + 5, OFGUI.ButtonTextColor)
 end
 
 -- 继承原有按钮的声音效果

@@ -144,7 +144,7 @@ function PANEL:PerformLayout()
 		end
 
 		v:SetPos(x, 0)
-		v:SetTall(h - 24)
+		v:SetTall(h - 24 * OFGUI.ScreenScale)
 
 		if v.ApplySchemeSettings then
 			v:ApplySchemeSettings()

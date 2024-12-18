@@ -10,7 +10,7 @@ AccessorFunc(PANEL, "m_pPanel", "Panel")
 function PANEL:Init()
 	self:SetMouseInputEnabled(true)
 	self:SetContentAlignment(7)
-	self:SetTextInset(0, 4)
+	self:SetTextInset(0, 4 * OFGUI.ScreenScale)
 	self.Color = OFGUI.PSTabInactiveColor
 end
 
@@ -21,19 +21,19 @@ function PANEL:Setup(label, pPropertySheet, pPanel, strMaterial)
 	self:SetPropertySheet(pPropertySheet)
 	self:SetPanel(pPanel)
 
-	local extraInset = 6
+	local extraInset = 6 * OFGUI.ScreenScale
 	if strMaterial then
 		self.Image = vgui.Create("DImage", self)
 		self.Image:SetImage(strMaterial)
 		self.Image:SizeToContents()
 		self:InvalidateLayout()
 
-		extraInset = 10 + self.Image:GetWide()
+		extraInset = 10 * OFGUI.ScreenScale + self.Image:GetWide()
 	end
 
-	self:SetTextInset(extraInset, 4)
+	self:SetTextInset(extraInset, 4 * OFGUI.ScreenScale)
 	self:SizeToContentsX(6)
-	self:SetTall(18)
+	self:SetTall(18 * OFGUI.ScreenScale)
 end
 
 function PANEL:IsActive()
@@ -62,7 +62,7 @@ function PANEL:Paint(w,h)
 			self.Color = LerpColor(7.5 * FrameTime(), self.Color, OFGUI.PSTabInactiveColor)
 		end
 	end
-	draw.RoundedBoxEx(8, 0, 0, w, h, self.Color, true, true, false, false)
+	draw.RoundedBoxEx(8 * OFGUI.ScreenScale, 0, 0, w, h, self.Color, true, true, false, false)
 end
 
 function PANEL:PerformLayout()
@@ -72,7 +72,7 @@ function PANEL:PerformLayout()
 		return
 	end
 
-	self.Image:SetPos(7, 3)
+	self.Image:SetPos(7 * OFGUI.ScreenScale, 3 * OFGUI.ScreenScale)
 
 	if not self:IsActive() then
 		self.Image:SetImageColor(ColorAlpha(color_white, 155))
@@ -83,7 +83,7 @@ function PANEL:PerformLayout()
 end
 
 function PANEL:GetTabHeight()
-	return 24
+	return 24 * OFGUI.ScreenScale
 end
 
 function PANEL:DragHoverClick(hoverTime)
@@ -132,21 +132,21 @@ function PANEL:Init()
 	self:SetShowIcons(true)
 
 	self.tabScroller = vgui.Create("OFHorizontalScroller", self)
-	self.tabScroller:SetTall(48)
-	self.tabScroller:SetOverlap(-2)
+	self.tabScroller:SetTall(48 * OFGUI.ScreenScale)
+	self.tabScroller:SetOverlap(-2 * OFGUI.ScreenScale)
 	self.tabScroller:Dock(TOP)
 	self.tabScroller:DockMargin(0, 0, 0, 0)
 	self:InvalidateParent()
 
 	self.tabScroller.Paint = function(tbs, w, h)
 		surface.SetDrawColor(OFGUI.PSUnderlineDefaultColor)
-		surface.DrawLine(0, 24, w, 24)
-		surface.DrawLine(0, 25, w, 25)
+		surface.DrawLine(0, 24 * OFGUI.ScreenScale, w, 24 * OFGUI.ScreenScale)
+		surface.DrawLine(0, 25 * OFGUI.ScreenScale, w, 25 * OFGUI.ScreenScale)
 
 		local p_x, _, p_w, _ = self.m_pActiveTab:GetBounds()
 		surface.SetDrawColor(OFGUI.PSUnderlineActiveColor)
-		surface.DrawLine(p_x, 24, p_x + p_w-1, 24)
-		surface.DrawLine(p_x, 25, p_x + p_w-1, 25)
+		surface.DrawLine(p_x, 24 * OFGUI.ScreenScale, p_x + p_w-1, 24 * OFGUI.ScreenScale)
+		surface.DrawLine(p_x, 25 * OFGUI.ScreenScale, p_x + p_w-1, 25 * OFGUI.ScreenScale)
 	end
 
 	self:SetFadeTime(0.1)
@@ -174,7 +174,7 @@ function PANEL:AddSheet(label, panel, material, noStretchX, noStretchY, tooltip)
 	sheet.Panel = panel
 	sheet.Panel.NoStretchX = noStretchX
 	sheet.Panel.NoStretchY = noStretchY
-	sheet.Panel:SetPos(self:GetPadding(), 26 + self:GetPadding())
+	sheet.Panel:SetPos(self:GetPadding(), 26 * OFGUI.ScreenScale + self:GetPadding())
 	sheet.Panel:SetVisible(false)
 
 	panel:SetParent(self)
@@ -292,12 +292,12 @@ function PANEL:PerformLayout()
 			if IsValid(v.Tab:GetPanel()) then
 				v.Tab:GetPanel():SetVisible(true)
 			end
-			v.Tab:SetZPos(100)
+			v.Tab:SetZPos(100 * OFGUI.ScreenScale)
 		else
 			if IsValid(v.Tab:GetPanel()) then
 				v.Tab:GetPanel():SetVisible(false)
 			end
-			v.Tab:SetZPos(1)
+			v.Tab:SetZPos(1 * OFGUI.ScreenScale)
 		end
 		v.Tab:ApplySchemeSettings()
 	end

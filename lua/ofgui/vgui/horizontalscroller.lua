@@ -102,7 +102,7 @@ function PANEL:Clear()
 end
 
 function PANEL:OnMouseWheeled(dlta)
-	self.OffsetX = self.OffsetX + dlta * -30
+	self.OffsetX = self.OffsetX + dlta * -30 * OFGUI.ScreenScale
 	self:InvalidateLayout(true)
 	return true
 end
@@ -112,21 +112,21 @@ function PANEL:Think()
 	self.FrameTime = VGUIFrameTime()
 
 	if self.btnRight:IsDown() then
-		self.OffsetX = self.OffsetX + (500 * FrameRate)
+		self.OffsetX = self.OffsetX + (500 * FrameRate * OFGUI.ScreenScale)
 		self:InvalidateLayout(true)
 	end
 
 	if self.btnLeft:IsDown() then
-		self.OffsetX = self.OffsetX - (500 * FrameRate)
+		self.OffsetX = self.OffsetX - (500 * FrameRate * OFGUI.ScreenScale)
 		self:InvalidateLayout(true)
 	end
 
 	if dragndrop.IsDragging() then
 		local x, y = self:LocalCursorPos()
-		if x < 30 then
-			self.OffsetX = self.OffsetX - (350 * FrameRate)
-		elseif x > self:GetWide() - 30 then
-			self.OffsetX = self.OffsetX + (350 * FrameRate)
+		if x < 30 * OFGUI.ScreenScale then
+			self.OffsetX = self.OffsetX - (350 * FrameRate * OFGUI.ScreenScale)
+		elseif x > self:GetWide() - 30 * OFGUI.ScreenScale then
+			self.OffsetX = self.OffsetX + (350 * FrameRate * OFGUI.ScreenScale)
 		end
 		self:InvalidateLayout(true)
 	end
@@ -135,7 +135,7 @@ end
 function PANEL:PerformLayout()
 	local w, h = self:GetSize()
 
-	self.pnlCanvas:SetTall(h - 24)
+	self.pnlCanvas:SetTall(h - 24 * OFGUI.ScreenScale)
 
 	local x = 0
 	for _, v in pairs(self.Panels) do
@@ -163,11 +163,11 @@ function PANEL:PerformLayout()
 
 	self.pnlCanvas.x = self.OffsetX * -1
 
-	self.btnLeft:SetSize(16, 16)
+	self.btnLeft:SetSize(16 * OFGUI.ScreenScale, 16 * OFGUI.ScreenScale)
 	self.btnLeft:AlignLeft(4)
 	self.btnLeft:AlignBottom(4)
 
-	self.btnRight:SetSize(16, 16)
+	self.btnRight:SetSize(16 * OFGUI.ScreenScale, 16 * OFGUI.ScreenScale)
 	self.btnRight:AlignRight(4)
 	self.btnRight:AlignBottom(4)
 

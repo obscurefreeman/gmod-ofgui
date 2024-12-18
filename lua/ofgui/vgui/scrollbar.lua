@@ -15,7 +15,7 @@ function PANEL:Init()
 
 	self.btnGrip = vgui.Create("OFScrollBarGrip", self)
 
-	self:SetSize(16, 15)
+	self:SetSize(16 * OFGUI.ScreenScale, 15 * OFGUI.ScreenScale)
 	self:SetHideButtons(false)
 end
 

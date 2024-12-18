@@ -25,6 +25,7 @@ function PANEL:Init()
 	self.TopBar:Dock(TOP)
 	self.TopBar:SetTall(32 * OFGUI.ScreenScale)
 	self.TopBar.Paint = function() end
+	self.TopBar:SetCursor("sizeall")
 
 	-- 创建控制按钮容器
 	self.ControlButtons = vgui.Create("DPanel", self.TopBar)

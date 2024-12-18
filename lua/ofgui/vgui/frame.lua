@@ -97,6 +97,14 @@ function PANEL:Init()
 	}
 	
 	self.Maximized = false
+
+	-- 添加鼠标按下事件以开始拖动
+	self.TopBar.OnMousePressed = function(_, mouseCode)
+		if mouseCode == MOUSE_LEFT then
+			self.Dragging = {gui.MouseX() - self:GetX(), gui.MouseY() - self:GetY()}
+			self:MouseCapture(true) -- 捕获鼠标
+		end
+	end
 end
 
 function PANEL:SetNoRounded(bool)
@@ -195,6 +203,25 @@ function PANEL:Maximize()
 	
 	-- 重新生成圆角遮罩
 	self.FirstInit = false
+end
+
+function PANEL:Think()
+    if self.Dragging then
+        local parent = self:GetParent()
+        local mousex = gui.MouseX()
+        local mousey = gui.MouseY()
+        local x = math.Clamp(mousex - self.Dragging[1], 0, parent:GetWide() - self:GetWide())
+        local y = math.Clamp(mousey - self.Dragging[2], 0, parent:GetTall() - self:GetTall())
+        self:SetPos(x, y)
+    end
+end
+
+function PANEL:OnMouseReleased()
+
+	self.Dragging = nil
+	-- self.Sizing = nil
+	self:MouseCapture( false )
+
 end
 
 function PANEL:Restore()

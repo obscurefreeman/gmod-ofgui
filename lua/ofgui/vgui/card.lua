@@ -1,22 +1,15 @@
 local PANEL = {}
 
 function PANEL:Init()
-    -- 继承基础按钮的属性
-    self:SetFont("ofgui_medium")
-    self:SetText("")
-    self:SetTooltipPanelOverride("OFTooltip")
-    self:SetDoubleClickingEnabled(false)
+
     self:SetExpensiveShadow(1, ColorAlpha(color_black, 140))
 
-    -- 创建带有内边距的图标
     self.Icon = vgui.Create("DImage", self)
     self.IconPadding = 10 * OFGUI.ScreenScale  -- 设置图标的内边距
 
-    -- 创建标题和描述的 DLabel
     self.TitleLabel = vgui.Create("DLabel", self)
     self.DescriptionLabel = vgui.Create("DLabel", self)
-    
-    -- 设置 DLabel 的默认属性
+
     self.TitleLabel:SetFont("ofgui_medium")
     self.TitleLabel:SetText("")
     self.TitleLabel:SetContentAlignment(5)  -- 居中对齐
@@ -26,7 +19,7 @@ function PANEL:Init()
     self.DescriptionLabel:SetWrap(true)  -- 允许换行
     self.DescriptionLabel:SetContentAlignment(5)  -- 居中对齐
     self.DescriptionLabel:SetAutoStretchVertical(true)  -- 添加此行以允许竖直方向自适应
-    
+
     -- 设置默认属性
     self.Title = ""
     self.Description = ""
@@ -77,7 +70,6 @@ function PANEL:PerformLayout(w, h)
 end
 
 function PANEL:Paint(w, h)
-
     draw.RoundedBox(self.CornerRadius, 0, 0, w, h, self.Color)
     
     -- 绘制标题和描述
@@ -85,9 +77,8 @@ function PANEL:Paint(w, h)
     self.DescriptionLabel:PaintManual()  -- 手动绘制描述
 end
 
--- 添加设置圆角半径的方法
 function PANEL:SetCornerRadius(radius)
     self.CornerRadius = radius
 end
 
-derma.DefineControl("OFCard", "A transparent button with border and icon for skills", PANEL, "DButton") 
+derma.DefineControl("OFCard", "A transparent panel with border and icon for skills", PANEL, "DPanel") 

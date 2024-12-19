@@ -24,6 +24,11 @@ function PANEL:Init()
     
     -- 默认大小
     self:SetSize(300, 64)
+
+    -- 创建悬浮卡片
+    self.HoverCard = vgui.Create("OFCard")  -- 使用 OFCard 作为悬浮卡片
+    self.HoverCard:SetVisible( false )  -- 初始隐藏
+    self.HoverCard:SetDrawOnTop( true )
 end
 
 function PANEL:SetIcon(material)
@@ -97,6 +102,37 @@ end
 function PANEL:OnCursorEntered()
     if self:GetDisabled() then return end
     OFGUI.PlaySound(OFGUI.ButtonHoverSound)
+
+    -- 显示悬浮卡片
+    self.HoverCard:SetVisible(true)
+    self.HoverCard:SetTitle(self.Title)  -- 设置标题
+    self.HoverCard:SetDescription(self.Description)  -- 设置描述
+    self.HoverCard:SetIcon(self.Icon:GetMaterial())  -- 设置图标
+    self.HoverCard:SetSize(240 * OFGUI.ScreenScale, 320 * OFGUI.ScreenScale)  -- 设置图标
+end
+
+function PANEL:OnCursorExited()
+    -- 隐藏悬浮卡片
+    self.HoverCard:SetVisible(false)
+end
+
+function PANEL:Think()
+    -- 更新悬浮卡片的位置
+    if self.HoverCard:IsVisible() then
+
+        local x, y = input.GetCursorPos()
+        local w, h = self.HoverCard:GetSize()
+    
+        local lx, ly = self:LocalToScreen( 0, 0 )
+    
+        y = y - 50
+    
+        y = math.min( y, ly - h - 10 )
+        if ( y < 2 ) then y = 2 end
+    
+        -- Fixes being able to be drawn off screen
+        self.HoverCard:SetPos( math.Clamp( x - w * 0.5, 0, ScrW() - self.HoverCard:GetWide() ), math.Clamp( y, 0, ScrH() - self.HoverCard:GetTall() ) )
+    end
 end
 
 -- 添加设置圆角半径的方法

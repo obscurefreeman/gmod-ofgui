@@ -140,4 +140,11 @@ function PANEL:SetCornerRadius(radius)
     self.CornerRadius = radius
 end
 
+function PANEL:OnRemove()
+    -- 移除悬浮卡片
+    if IsValid(self.HoverCard) then
+        self.HoverCard:Remove()
+    end
+end
+
 derma.DefineControl("OFSkillButton", "A transparent button with border and icon for skills", PANEL, "DButton") 

@@ -19,8 +19,8 @@ function PANEL:Init()
     self.Color = Color(OFGUI.ButtonColor.r, OFGUI.ButtonColor.g, OFGUI.ButtonColor.b, OFGUI.ButtonColor.a)
     self.HoveredColor = Color(OFGUI.ButtonColor.r, OFGUI.ButtonColor.g, OFGUI.ButtonColor.b, OFGUI.ButtonColor.a)
     self.InnerGlowAlpha = 0  -- 内阴影透明度
-    self.IconPadding = 8  -- 图标与边缘的间距
-    self.CornerRadius = 6  -- 添加统一的圆角半径
+    self.IconPadding = 8 * OFGUI.ScreenScale  -- 图标与边缘的间距
+    self.CornerRadius = 6 * OFGUI.ScreenScale  -- 添加统一的圆角半径
     
     -- 默认大小
     self:SetSize(300, 64)
@@ -108,7 +108,7 @@ function PANEL:OnCursorEntered()
     self.HoverCard:SetTitle(self.Title)  -- 设置标题
     self.HoverCard:SetDescription(self.Description)  -- 设置描述
     self.HoverCard:SetIcon(self.Icon:GetMaterial())  -- 设置图标
-    self.HoverCard:SetSize(240 * OFGUI.ScreenScale, 320 * OFGUI.ScreenScale)  -- 设置图标
+    self.HoverCard:SetSize(213 * OFGUI.ScreenScale, 296 * OFGUI.ScreenScale)  -- 设置图标
 end
 
 function PANEL:OnCursorExited()
@@ -125,9 +125,9 @@ function PANEL:Think()
     
         local lx, ly = self:LocalToScreen( 0, 0 )
     
-        y = y - 50
+        y = y - 8 * OFGUI.ScreenScale
     
-        y = math.min( y, ly - h - 10 )
+        y = math.min( y, ly - h - 8 * OFGUI.ScreenScale )
         if ( y < 2 ) then y = 2 end
     
         -- Fixes being able to be drawn off screen

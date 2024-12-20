@@ -25,7 +25,7 @@ function PANEL:Init()
     self.Description = ""
     self.Color = Color(OFGUI.ButtonColor.r, OFGUI.ButtonColor.g, OFGUI.ButtonColor.b, OFGUI.ButtonColor.a)
     self.InnerGlowAlpha = 0  -- 内阴影透明度
-    self.CornerRadius = 6  -- 添加统一的圆角半径
+    self.CornerRadius = 6 * OFGUI.ScreenScale  -- 添加统一的圆角半径
     
     -- 默认大小
     self:SetSize(300, 64)

@@ -26,6 +26,7 @@ function PANEL:Init()
     self.Color = Color(OFGUI.ButtonColor.r, OFGUI.ButtonColor.g, OFGUI.ButtonColor.b, OFGUI.ButtonColor.a)
     self.InnerGlowAlpha = 0  -- 内阴影透明度
     self.CornerRadius = 6 * OFGUI.ScreenScale  -- 添加统一的圆角半径
+    self.FrameBlur = true
     
     -- 默认大小
     self:SetSize(300, 64)
@@ -39,6 +40,10 @@ function PANEL:SetIcon(material)
         material = Material(material)
     end
     self.Icon:SetMaterial(material)
+end
+
+function PANEL:SetFrameBlur(bool)
+	self.FrameBlur = bool == nil and true or bool
 end
 
 function PANEL:SetTitle(text)
@@ -70,11 +75,22 @@ function PANEL:PerformLayout(w, h)
 end
 
 function PANEL:Paint(w, h)
-    draw.RoundedBox(self.CornerRadius, 0, 0, w, h, self.Color)
-    
-    -- 绘制标题和描述
-    self.TitleLabel:PaintManual()  -- 手动绘制标题
-    self.DescriptionLabel:PaintManual()  -- 手动绘制描述
+
+    self.PolyMask = surface.PrecacheRoundedRect(0, 0, self:GetWide(), self:GetTall(), self.CornerRadius, 16)
+
+	EZMASK.DrawWithMask(function()
+		surface.SetDrawColor(color_white)
+		surface.DrawPoly(self.PolyMask)
+	end, function()
+		if self.FrameBlur then
+			surface.DrawPanelBlur(self, 6)
+		end
+        draw.RoundedBox(self.CornerRadius, 0, 0, w, h, self.Color)
+        
+        -- 绘制标题和描述
+        self.TitleLabel:PaintManual()  -- 手动绘制标题
+        self.DescriptionLabel:PaintManual()  -- 手动绘制描述
+    end)
 end
 
 function PANEL:SetCornerRadius(radius)

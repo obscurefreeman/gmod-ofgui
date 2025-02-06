@@ -8,14 +8,16 @@ function PANEL:Init()
     -- 创建标题DLabel
     self.TitleLabel = vgui.Create("DLabel", self)
     self.TitleLabel:SetFont("ofgui_big")
-    self.TitleLabel:SetTextColor(OFGUI.ButtonTextColor)
+    self.TitleLabel:SetTextColor(Color(255, 255, 255, 255))
+    self.TitleLabel:DockMargin(4 * OFGUI.ScreenScale, 4 * OFGUI.ScreenScale, 4 * OFGUI.ScreenScale, 2 * OFGUI.ScreenScale)
     self.TitleLabel:Dock(TOP)
     
     -- 创建描述DLabel
     self.DescLabel = vgui.Create("DLabel", self)
     self.DescLabel:SetFont("ofgui_medium")
-    self.DescLabel:SetTextColor(OFGUI.ButtonTextColor)
+    self.DescLabel:SetTextColor(Color(255, 255, 255, 255))
     self.DescLabel:SetWrap(true)
+    self.DescLabel:DockMargin(4 * OFGUI.ScreenScale, 2 * OFGUI.ScreenScale, 4 * OFGUI.ScreenScale, 4 * OFGUI.ScreenScale)
     self.DescLabel:Dock(TOP)
     
     -- 默认大小
@@ -25,19 +27,16 @@ end
 function PANEL:SetName(text)
     self.TitleLabel:SetText(text)
     self.TitleLabel:SetAutoStretchVertical(true)
-    self:UpdateLayout()
 end
 
 function PANEL:SetText(text)
     self.DescLabel:SetText(text)
     self.DescLabel:SetAutoStretchVertical(true)
-    self:UpdateLayout()
 end
 
-function PANEL:UpdateLayout()
-    -- 更新面板高度
+function PANEL:Think()
     local padding = 4 * OFGUI.ScreenScale
-    local totalHeight = self.TitleLabel:GetTall() + padding + self.DescLabel:GetTall() + padding
+    local totalHeight = self.TitleLabel:GetTall() + self.DescLabel:GetTall() + 3 * padding
     self:SetTall(totalHeight)
 end
 

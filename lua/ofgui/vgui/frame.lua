@@ -20,6 +20,8 @@ function PANEL:Init()
 	self.FrameBlur = true
 	self.BackgroundBlur = false
 
+	self.CanDrag = true  -- 添加一个新的变量来控制是否可以拖拽
+
 	-- 创建标题栏面板
 	self.TopBar = vgui.Create("DPanel", self)
 	self.TopBar:Dock(TOP)
@@ -99,11 +101,11 @@ function PANEL:Init()
 	
 	self.Maximized = false
 
-	-- 添加鼠标按下事件以开始拖动
+	-- 修改鼠标按下事件以检查是否允许拖拽
 	self.TopBar.OnMousePressed = function(_, mouseCode)
-		if mouseCode == MOUSE_LEFT then
+		if mouseCode == MOUSE_LEFT and self.CanDrag then
 			self.Dragging = {gui.MouseX() - self:GetX(), gui.MouseY() - self:GetY()}
-			self:MouseCapture(true) -- 捕获鼠标
+			self:MouseCapture(true)
 		end
 	end
 end
@@ -143,10 +145,6 @@ function PANEL:Paint(w, h)
 		end
 		-- 使用当前圆角值
 		draw.RoundedBox(currentRounded, 0, 0, w, h, OFGUI.BGColor)
-
-		surface.SetDrawColor(OFGUI.HeaderLineColor)
-		surface.DrawLine(8 * OFGUI.ScreenScale, self.TopBar:GetTall() - 1 * OFGUI.ScreenScale, w - 8 * OFGUI.ScreenScale, self.TopBar:GetTall() - 1 * OFGUI.ScreenScale)
-		surface.DrawLine(8 * OFGUI.ScreenScale, self.TopBar:GetTall(), w - 8 * OFGUI.ScreenScale, self.TopBar:GetTall())
 	end)
 end
 
@@ -234,6 +232,24 @@ function PANEL:Restore()
 	
 	-- 重新生成圆角遮罩
 	self.FirstInit = false
+end
+
+function PANEL:ShowCloseButton(show)
+	if IsValid(self.CloseButton) then
+		self.CloseButton:SetVisible(show)
+	end
+end
+
+function PANEL:ShowMaximizeButton(show)
+	if IsValid(self.MaximizeButton) then
+		self.MaximizeButton:SetVisible(show)
+	end
+end
+
+-- 添加新的方法来设置是否可以拖拽
+function PANEL:SetDraggable(candrag)
+	self.CanDrag = candrag
+	self.TopBar:SetCursor(candrag and "sizeall" or "arrow")
 end
 
 derma.DefineControl("OFFrame", "", PANEL, "EditablePanel")

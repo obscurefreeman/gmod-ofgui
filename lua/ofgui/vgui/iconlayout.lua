@@ -41,6 +41,7 @@ function PANEL:LayoutIcons_TOP()
 	local MaxWidth = self:GetWide() - self.m_iBorder
 	local RowStartX = x
 	local RowChildren = {}
+	local Rows = {} -- 存储每一行的信息
 
 	for k, v in ipairs( self:GetChildren() ) do
 
@@ -49,15 +50,16 @@ function PANEL:LayoutIcons_TOP()
 		local w, h = v:GetSize()
 		if ( x + w > MaxWidth || ( v.OwnLine && x > self.m_iBorder ) ) then
 
-			-- Center the row if it doesn't fill the width
-			local totalRowWidth = x - RowStartX - self.m_iSpaceX
-			if totalRowWidth < MaxWidth then
-				local offset = (MaxWidth - totalRowWidth) / 2
-				for _, child in ipairs(RowChildren) do
-					child:SetPos(child.x + offset, child.y)
-				end
-			end
+			-- 记录当前行的信息
+			table.insert(Rows, {
+				children = RowChildren,
+				width = x - RowStartX - self.m_iSpaceX,
+				height = RowHeight,
+				startX = RowStartX,
+				y = y
+			})
 
+			-- 重置行变量
 			x = self.m_iBorder
 			y = y + RowHeight + self.m_iSpaceY
 			RowHeight = 0
@@ -74,19 +76,39 @@ function PANEL:LayoutIcons_TOP()
 		x = x + v:GetWide() + self.m_iSpaceX
 		RowHeight = math.max( RowHeight, v:GetTall() )
 
-		-- Start a new line if this panel is meant to be on its own line
+		-- 如果该元素需要独占一行
 		if ( v.OwnLine ) then
 			x = MaxWidth + 1
 		end
 
 	end
 
-	-- Center the last row if it doesn't fill the width
-	local totalRowWidth = x - RowStartX - self.m_iSpaceX
-	if totalRowWidth < MaxWidth then
-		local offset = (MaxWidth - totalRowWidth) / 2
-		for _, child in ipairs(RowChildren) do
-			child:SetPos(child.x + offset, child.y)
+	-- 记录最后一行
+	if #RowChildren > 0 then
+		table.insert(Rows, {
+			children = RowChildren,
+			width = x - RowStartX - self.m_iSpaceX,
+			height = RowHeight,
+			startX = RowStartX,
+			y = y
+		})
+	end
+
+	-- 计算所有行的最大宽度
+	local maxRowWidth = 0
+	for _, row in ipairs(Rows) do
+		if row.width > maxRowWidth then
+			maxRowWidth = row.width
+		end
+	end
+
+	-- 整体居中偏移量
+	local offsetX = (MaxWidth - maxRowWidth) / 2
+
+	-- 应用整体居中偏移
+	for _, row in ipairs(Rows) do
+		for _, child in ipairs(row.children) do
+			child:SetPos(child.x + offsetX, child.y)
 		end
 	end
 
@@ -117,7 +139,7 @@ function PANEL:LayoutIcons_LEFT()
 		y = y + v:GetTall() + self.m_iSpaceY
 		RowWidth = math.max( RowWidth, v:GetWide() )
 
-		-- Start a new line if this panel is meant to be on its own line
+		-- 如果该元素需要独占一行
 		if ( v.OwnLine ) then
 			y = MaxHeight + 1
 		end

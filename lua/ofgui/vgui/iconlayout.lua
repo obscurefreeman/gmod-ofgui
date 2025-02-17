@@ -1,4 +1,3 @@
-
 local PANEL = {}
 
 AccessorFunc( PANEL, "m_iSpaceX",		"SpaceX" )
@@ -40,6 +39,8 @@ function PANEL:LayoutIcons_TOP()
 	local y = self.m_iBorder
 	local RowHeight = 0
 	local MaxWidth = self:GetWide() - self.m_iBorder
+	local RowStartX = x
+	local RowChildren = {}
 
 	for k, v in ipairs( self:GetChildren() ) do
 
@@ -48,13 +49,27 @@ function PANEL:LayoutIcons_TOP()
 		local w, h = v:GetSize()
 		if ( x + w > MaxWidth || ( v.OwnLine && x > self.m_iBorder ) ) then
 
+			-- Center the row if it doesn't fill the width
+			local totalRowWidth = x - RowStartX - self.m_iSpaceX
+			if totalRowWidth < MaxWidth then
+				local offset = (MaxWidth - totalRowWidth) / 2
+				for _, child in ipairs(RowChildren) do
+					child:SetPos(child.x + offset, child.y)
+				end
+			end
+
 			x = self.m_iBorder
 			y = y + RowHeight + self.m_iSpaceY
 			RowHeight = 0
+			RowStartX = x
+			RowChildren = {}
 
 		end
 
 		v:SetPos( x, y )
+		v.x = x
+		v.y = y
+		table.insert(RowChildren, v)
 
 		x = x + v:GetWide() + self.m_iSpaceX
 		RowHeight = math.max( RowHeight, v:GetTall() )
@@ -64,6 +79,15 @@ function PANEL:LayoutIcons_TOP()
 			x = MaxWidth + 1
 		end
 
+	end
+
+	-- Center the last row if it doesn't fill the width
+	local totalRowWidth = x - RowStartX - self.m_iSpaceX
+	if totalRowWidth < MaxWidth then
+		local offset = (MaxWidth - totalRowWidth) / 2
+		for _, child in ipairs(RowChildren) do
+			child:SetPos(child.x + offset, child.y)
+		end
 	end
 
 end

@@ -14,6 +14,7 @@ function PANEL:Init()
     -- 设置默认属性
     self.Title = ""
     self.Description = ""
+    self.Cardicon = ""
     self.ColorA = OFGUI.ButtonColor.a
     self.ColorRegular = Color(OFGUI.ButtonColor.r, OFGUI.ButtonColor.g, OFGUI.ButtonColor.b, OFGUI.ButtonColor.a)
     self.Color = Color(OFGUI.ButtonColor.r, OFGUI.ButtonColor.g, OFGUI.ButtonColor.b, OFGUI.ButtonColor.a)
@@ -36,6 +37,12 @@ function PANEL:SetIcon(material)
         material = Material(material)
     end
     self.Icon:SetMaterial(material)
+end
+
+function PANEL:SetCardIcon(material)
+    if type(material) == "string" then
+        self.Cardicon = material
+    end
 end
 
 function PANEL:SetTitle(text)
@@ -107,7 +114,7 @@ function PANEL:OnCursorEntered()
     self.HoverCard:SetVisible(true)
     self.HoverCard:SetTitle(self.Title)  -- 设置标题
     self.HoverCard:SetDescription(self.Description)  -- 设置描述
-    self.HoverCard:SetIcon(self.Icon:GetMaterial())  -- 设置图标
+    self.HoverCard:SetIcon(self.Cardicon)  -- 设置图标为 Cardicon
     self.HoverCard:SetSize(213 * OFGUI.ScreenScale, 296 * OFGUI.ScreenScale)  -- 设置图标
 end
 

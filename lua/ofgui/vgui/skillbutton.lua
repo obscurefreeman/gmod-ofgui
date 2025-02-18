@@ -35,12 +35,14 @@ end
 function PANEL:SetIcon(material)
     if type(material) == "string" then
         material = Material(material)
+        self.Icon:SetMaterial(material)
+        self.Cardicon = material
     end
-    self.Icon:SetMaterial(material)
 end
 
 function PANEL:SetCardIcon(material)
     if type(material) == "string" then
+        material = Material(material)
         self.Cardicon = material
     end
 end

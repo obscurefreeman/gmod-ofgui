@@ -56,10 +56,10 @@ function PANEL:AddOption(strText, funcFunction)
 		pnl.DoClick = funcFunction
 	end
 
-	self.RealTall = self.RealTall + 24
+	self.RealTall = self.RealTall + 24 * OFGUI.ScreenScale
 
 	local mx, my = input.GetCursorPos()
-	self:SetPos(mx, math.Clamp(my - self.RealTall + 24, 0, ScrH()))
+	self:SetPos(mx, math.Clamp(my - self.RealTall + 24 * OFGUI.ScreenScale, 0, ScrH()))
 
 	self:AddPanel(pnl)
 
@@ -197,7 +197,7 @@ function PANEL:PerformLayout()
 		pnl:SetPos(0, y)
 		pnl:InvalidateLayout(true)
 
-		y = y + pnl:GetTall() + 1
+		y = y + pnl:GetTall() + 1 * OFGUI.ScreenScale
 	end
 
 	y = math.min(y, self:GetMaxHeight())

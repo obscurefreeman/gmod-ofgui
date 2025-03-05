@@ -21,7 +21,7 @@ function PANEL:Init()
 
 	self.DropButton = vgui.Create("DPanel", self)
 
-	self:SetTall(21)
+	self:SetTall(21 * OFGUI.ScreenScale)
 
 	self.DropButton.Paint = function(panel, w, h)
 		CT = SysTime()

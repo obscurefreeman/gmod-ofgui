@@ -22,6 +22,7 @@ function PANEL:Init()
     self.InnerGlowAlpha = 0  -- 内阴影透明度
     self.IconPadding = 8 * OFGUI.ScreenScale  -- 图标与边缘的间距
     self.CornerRadius = 6 * OFGUI.ScreenScale  -- 添加统一的圆角半径
+    self.ShowHoverCard = true
     
     -- 默认大小
     self:SetSize(300, 64)
@@ -57,6 +58,10 @@ end
 
 function PANEL:SetHoveredColor(color)
     self.HoveredColor = color
+end
+
+function PANEL:SetShowHoverCard(show)
+    self.ShowHoverCard = show
 end
 
 function PANEL:PerformLayout(w, h)
@@ -112,12 +117,13 @@ function PANEL:OnCursorEntered()
     if self:GetDisabled() then return end
     OFGUI.PlaySound(OFGUI.ButtonHoverSound)
 
-    -- 显示悬浮卡片
-    self.HoverCard:SetVisible(true)
-    self.HoverCard:SetTitle(self.Title)  -- 设置标题
-    self.HoverCard:SetDescription(self.Description)  -- 设置描述
-    self.HoverCard:SetIcon(self.Cardicon)  -- 设置图标为 Cardicon
-    self.HoverCard:SetSize(213 * OFGUI.ScreenScale, 296 * OFGUI.ScreenScale)  -- 设置图标
+    if self.ShowHoverCard ~= false then
+        self.HoverCard:SetVisible(true)
+        self.HoverCard:SetTitle(self.Title)
+        self.HoverCard:SetDescription(self.Description)
+        self.HoverCard:SetIcon(self.Cardicon)
+        self.HoverCard:SetSize(213 * OFGUI.ScreenScale, 296 * OFGUI.ScreenScale)
+    end
 end
 
 function PANEL:OnCursorExited()

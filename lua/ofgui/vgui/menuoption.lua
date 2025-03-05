@@ -102,13 +102,13 @@ function PANEL:OnChecked(b) end
 
 function PANEL:PerformLayout()
 	self:SizeToContents()
-	self:SetWide(self:GetWide() + 30)
+	self:SetWide(self:GetWide() + 30 * OFGUI.ScreenScale)
 
 	local w = math.max(self:GetParent():GetWide(), self:GetWide())
-	self:SetSize(w, 22)
+	self:SetSize(w, 22 * OFGUI.ScreenScale)
 
 	if IsValid(self.SubMenuArrow) then
-		self.SubMenuArrow:SetSize(15, 15)
+		self.SubMenuArrow:SetSize(15 * OFGUI.ScreenScale, 15 * OFGUI.ScreenScale)
 		self.SubMenuArrow:CenterVertical()
 		self.SubMenuArrow:AlignRight(4)
 	end

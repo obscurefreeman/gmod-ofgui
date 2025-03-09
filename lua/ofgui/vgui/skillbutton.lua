@@ -56,6 +56,10 @@ function PANEL:SetDescription(text)
     self.Description = text
 end
 
+function PANEL:SetCardDescription(text)
+    self.CardDescription = text
+end
+
 function PANEL:SetHoveredColor(color)
     self.HoveredColor = color
 end
@@ -120,7 +124,7 @@ function PANEL:OnCursorEntered()
     if self.ShowHoverCard ~= false then
         self.HoverCard:SetVisible(true)
         self.HoverCard:SetTitle(self.Title)
-        self.HoverCard:SetDescription(self.Description)
+        self.HoverCard:SetDescription(self.CardDescription or self.Description)
         self.HoverCard:SetIcon(self.Cardicon)
         self.HoverCard:SetSize(213 * OFGUI.ScreenScale, 296 * OFGUI.ScreenScale)
     end
@@ -162,4 +166,4 @@ function PANEL:OnRemove()
     end
 end
 
-derma.DefineControl("OFSkillButton", "A transparent button with border and icon for skills", PANEL, "DButton") 
+derma.DefineControl("OFAdvancedButton", "A transparent button with border and icon for skills", PANEL, "DButton") 

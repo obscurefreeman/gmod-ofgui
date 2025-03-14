@@ -12,10 +12,8 @@ function PANEL:Init()
     -- 初始化标题和描述文本
     self.titleMarkup = nil
     self.descMarkup = nil
-    self.footnoteMarkup = nil  -- 新增：脚注markup
     self.titleText = ""    -- 保存原始标题文本
     self.descText = ""     -- 保存原始描述文本
-    self.footnoteText = "" -- 新增：保存原始脚注文本
 end
 
 function PANEL:SetName(text)
@@ -32,13 +30,6 @@ function PANEL:SetText(text)
     self.descMarkup = markup.Parse("<font=ofgui_medium>" .. text .. "</font>", self:GetWide() - 8 * OFGUI.ScreenScale)
 end
 
-function PANEL:SetFootnote(text)
-    -- 保存原始文本
-    self.footnoteText = text
-    -- 使用markup解析脚注文本
-    self.footnoteMarkup = markup.Parse("<font=ofgui_tiny>" .. text .. "</font>", self:GetWide() - 8 * OFGUI.ScreenScale)
-end
-
 function PANEL:Think()
     if not self.titleMarkup or not self.descMarkup then return end
     
@@ -47,12 +38,6 @@ function PANEL:Think()
     
     local padding = 6 * OFGUI.ScreenScale
     local totalHeight = self.titleMarkup:GetHeight() + self.descMarkup:GetHeight() + 3 * padding
-    
-    -- 如果有脚注，增加其高度
-    if self.footnoteMarkup then
-        totalHeight = totalHeight + self.footnoteMarkup:GetHeight() + padding
-    end
-    
     self:SetTall(totalHeight)
 end
 
@@ -74,14 +59,6 @@ function PANEL:Paint(w, h)
     
     if self.descMarkup then
         self.descMarkup:Draw(paddingleft + barWidth, padding + (self.titleMarkup and self.titleMarkup:GetHeight() or 0) + padding, TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP)
-    end
-    
-    -- 绘制脚注文本
-    if self.footnoteMarkup then
-        local y = padding + (self.titleMarkup and self.titleMarkup:GetHeight() or 0) + padding + (self.descMarkup and self.descMarkup:GetHeight() or 0) + padding
-        -- 重新解析脚注为灰色
-        self.footnoteMarkup = markup.Parse(string.format("<color=150,150,150,255><font=ofgui_tiny>%s</font></color>", self.footnoteText), self:GetWide() - 8 * OFGUI.ScreenScale)
-        self.footnoteMarkup:Draw(paddingleft + barWidth, y, TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP)
     end
 end
 

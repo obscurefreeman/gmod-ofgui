@@ -48,10 +48,10 @@ end
 function PANEL:Think()
     if not self.titleMarkup or not self.descMarkup then return end
     
-    self.titleMarkup = markup.Parse("<font=ofgui_big>" .. self.titleText .. "</font>", self:GetWide() - 8 * OFGUI.ScreenScale)
-    self.descMarkup = markup.Parse("<font=ofgui_medium>" .. self.descText .. "</font>", self:GetWide() - 8 * OFGUI.ScreenScale)
+    self.titleMarkup = markup.Parse("<font=ofgui_big>" .. self.titleText .. "</font>", self:GetWide() - 40 * OFGUI.ScreenScale)
+    self.descMarkup = markup.Parse("<font=ofgui_medium>" .. self.descText .. "</font>", self:GetWide() - 40 * OFGUI.ScreenScale)
     
-    local padding = 6 * OFGUI.ScreenScale
+    local padding = 20 * OFGUI.ScreenScale
     local imageHeight = self.Image:IsVisible() and self.Image:GetTall() + padding or 0
     local totalHeight = self.titleMarkup:GetHeight() + self.descMarkup:GetHeight() + 3 * padding + imageHeight
     self:SetTall(totalHeight)
@@ -72,20 +72,19 @@ function PANEL:Paint(w, h)
     end)
 
     -- 绘制标题和描述文本
-    local padding = 6 * OFGUI.ScreenScale
-    local paddingleft = 8 * OFGUI.ScreenScale  -- 减少左侧padding
+    local padding = 20 * OFGUI.ScreenScale
     
     if self.titleMarkup then
-        self.titleMarkup:Draw(paddingleft, padding, TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP)
+        self.titleMarkup:Draw(padding, padding, TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP)
     end
     
     -- 绘制图片
     if self.Image:IsVisible() then
         local imageY = padding + (self.titleMarkup and self.titleMarkup:GetHeight() or 0) + padding
-        local imageW = w - paddingleft * 2
+        local imageW = w - padding * 2
         local mat = self.Image:GetMaterial()
-        local imageH = imageW * (mat:Height() / mat:Width())  -- 根据材质原始比例计算高度
-        self.Image:SetPos(paddingleft, imageY)
+        local imageH = imageW * (mat:Height() / mat:Width())
+        self.Image:SetPos(padding, imageY)
         self.Image:SetSize(imageW, imageH)
     end
     
@@ -94,7 +93,7 @@ function PANEL:Paint(w, h)
         if self.Image:IsVisible() then
             descY = descY + self.Image:GetTall() + padding
         end
-        self.descMarkup:Draw(paddingleft, descY, TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP)
+        self.descMarkup:Draw(padding, descY, TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP)
     end
 end
 

@@ -42,7 +42,7 @@ end
 function PANEL:Think()
     if not self.titleMarkup or not self.descMarkup then return end
     
-    -- 使用保存的原始文本重新解析
+    self.titleMarkup = markup.Parse("<font=ofgui_big>" .. self.titleText .. "</font>", self:GetWide() - 8 * OFGUI.ScreenScale)
     self.descMarkup = markup.Parse("<font=ofgui_medium>" .. self.descText .. "</font>", self:GetWide() - 8 * OFGUI.ScreenScale)
     
     local padding = 6 * OFGUI.ScreenScale

@@ -2,9 +2,6 @@ local PANEL = {}
 
 function PANEL:Init()
     self:SetExpensiveShadow(1, ColorAlpha(color_black, 140))
-
-    -- 修改为只存储条形的颜色
-    self.Color = Color(255, 255, 255)
     
     -- 默认大小
     self:SetSize(300, 64)
@@ -14,13 +11,18 @@ function PANEL:Init()
     self.descMarkup = nil
     self.titleText = ""    -- 保存原始标题文本
     self.descText = ""     -- 保存原始描述文本
+
+    -- 添加背景颜色和圆角属性
+    self.Color = Color(OFGUI.ButtonColor.r, OFGUI.ButtonColor.g, OFGUI.ButtonColor.b, OFGUI.ButtonColor.a)
+    self.CornerRadius = 6 * OFGUI.ScreenScale
+    self.FrameBlur = true
 end
 
 function PANEL:SetName(text)
     -- 保存原始文本
     self.titleText = text
-    -- 使用markup解析标题文本
-    self.titleMarkup = markup.Parse("<font=ofgui_big>" .. text .. "</font>")
+    -- 使用markup解析标题文本，固定为白色
+    self.titleMarkup = markup.Parse("<color=255,255,255,255><font=ofgui_big>" .. text .. "</font></color>")
 end
 
 function PANEL:SetText(text)
@@ -42,30 +44,30 @@ function PANEL:Think()
 end
 
 function PANEL:Paint(w, h)
-    -- 绘制左侧条形
-    local barWidth = 5 * OFGUI.ScreenScale
-    draw.RoundedBox(0, 0, 0, barWidth, h, self.Color)
-    
+    -- 绘制背景框
+    self.PolyMask = surface.PrecacheRoundedRect(0, 0, w, h, self.CornerRadius, 16)
+
+    EZMASK.DrawWithMask(function()
+        surface.SetDrawColor(color_white)
+        surface.DrawPoly(self.PolyMask)
+    end, function()
+        if self.FrameBlur then
+            surface.DrawPanelBlur(self, 6)
+        end
+        draw.RoundedBox(self.CornerRadius, 0, 0, w, h, self.Color)
+    end)
+
     -- 绘制标题和描述文本
     local padding = 6 * OFGUI.ScreenScale
-    local paddingleft = 16 * OFGUI.ScreenScale
+    local paddingleft = 8 * OFGUI.ScreenScale  -- 减少左侧padding
     
     if self.titleMarkup then
-        -- 重新解析标题文本以使用条形颜色
-        self.titleMarkup = markup.Parse(string.format("<color=%d,%d,%d,255><font=ofgui_big>%s</font></color>",
-            self.Color.r, self.Color.g, self.Color.b, self.titleText))
-        self.titleMarkup:Draw(paddingleft + barWidth, padding, TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP)
+        self.titleMarkup:Draw(paddingleft, padding, TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP)
     end
     
     if self.descMarkup then
-        self.descMarkup:Draw(paddingleft + barWidth, padding + (self.titleMarkup and self.titleMarkup:GetHeight() or 0) + padding, TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP)
+        self.descMarkup:Draw(paddingleft, padding + (self.titleMarkup and self.titleMarkup:GetHeight() or 0) + padding, TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP)
     end
-end
-
-function PANEL:SetColor(col)
-    -- 确保输入是一个有效的Color对象
-    if not col or not col.r or not col.g or not col.b then return end
-    self.Color = Color(col.r, col.g, col.b)
 end
 
 derma.DefineControl("OFArticle", "NPC信息区域", PANEL, "DPanel") 

@@ -14,6 +14,7 @@ function PANEL:Init()
     -- 设置默认颜色
     self.ColorA = OFGUI.ButtonColor.a
     self.Color = Color(OFGUI.ButtonColor.r, OFGUI.ButtonColor.g, OFGUI.ButtonColor.b, OFGUI.ButtonColor.a)
+    self.HoveredColor = Color(OFGUI.ButtonColor.r, OFGUI.ButtonColor.g, OFGUI.ButtonColor.b, OFGUI.ButtonColor.a)  -- 添加悬停颜色
     
     -- 默认文本
     self.Title = ""
@@ -58,8 +59,16 @@ end
 function PANEL:Paint(w, h)
     -- 背景动画效果
     if self:IsHovered() then
+        local targetColor = self.HoveredColor
+        self.Color.r = Lerp(7.5 * FrameTime(), self.Color.r, targetColor.r)
+        self.Color.g = Lerp(7.5 * FrameTime(), self.Color.g, targetColor.g)
+        self.Color.b = Lerp(7.5 * FrameTime(), self.Color.b, targetColor.b)
         self.Color.a = Lerp(7.5 * FrameTime(), self.Color.a, self.ColorA + 15)
     else
+        local targetColor = Color(OFGUI.ButtonColor.r, OFGUI.ButtonColor.g, OFGUI.ButtonColor.b, OFGUI.ButtonColor.a)
+        self.Color.r = Lerp(7.5 * FrameTime(), self.Color.r, targetColor.r)
+        self.Color.g = Lerp(7.5 * FrameTime(), self.Color.g, targetColor.g)
+        self.Color.b = Lerp(7.5 * FrameTime(), self.Color.b, targetColor.b)
         self.Color.a = Lerp(7.5 * FrameTime(), self.Color.a, self.ColorA)
     end
 
@@ -103,6 +112,11 @@ end
 function PANEL:SetAccentColor(clr)
     self.ColorA = 90
     self.Color = clr
+end
+
+-- 添加设置悬停颜色的方法
+function PANEL:SetHoveredColor(color)
+    self.HoveredColor = color
 end
 
 derma.DefineControl("OFNPCButton", "A button with model icon and description", PANEL, "DButton") 

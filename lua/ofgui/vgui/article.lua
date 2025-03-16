@@ -34,7 +34,7 @@ function PANEL:SetText(text)
     -- 保存原始文本
     self.descText = text
     -- 使用markup解析描述文本
-    self.descMarkup = markup.Parse("<font=ofgui_medium>" .. text .. "</font>", self:GetWide() - 8 * OFGUI.ScreenScale)
+    self.descMarkup = markup.Parse("<font=ofgui_small>" .. text .. "</font>", self:GetWide() - 8 * OFGUI.ScreenScale)
 end
 
 function PANEL:SetImage(material)
@@ -49,7 +49,7 @@ function PANEL:Think()
     if not self.titleMarkup or not self.descMarkup then return end
     
     self.titleMarkup = markup.Parse("<font=ofgui_big>" .. self.titleText .. "</font>", self:GetWide() - 40 * OFGUI.ScreenScale)
-    self.descMarkup = markup.Parse("<font=ofgui_medium>" .. self.descText .. "</font>", self:GetWide() - 40 * OFGUI.ScreenScale)
+    self.descMarkup = markup.Parse("<font=ofgui_small>" .. self.descText .. "</font>", self:GetWide() - 40 * OFGUI.ScreenScale)
     
     local padding = 20 * OFGUI.ScreenScale
     local imageHeight = self.Image:IsVisible() and self.Image:GetTall() + padding or 0

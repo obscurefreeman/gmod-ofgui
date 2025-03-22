@@ -29,7 +29,7 @@ function PANEL:SetName(text)
     -- 保存原始文本
     self.titleText = text
     -- 使用markup解析标题文本，固定为白色
-    self.titleMarkup = markup.Parse("<color=255,255,255,255><font=ofgui_eva>" .. text .. "</font></color>")
+    self.titleMarkup = markup.Parse("<color=255,255,255,255><font=ofgui_huge>" .. text .. "</font></color>")
 end
 
 function PANEL:SetSubtitle(text)
@@ -57,7 +57,7 @@ end
 function PANEL:Think()
     if not self.titleMarkup or not self.descMarkup then return end
     
-    self.titleMarkup = markup.Parse("<font=ofgui_eva>" .. self.titleText .. "</font>", self:GetWide() - 40 * OFGUI.ScreenScale)
+    self.titleMarkup = markup.Parse("<font=ofgui_huge>" .. self.titleText .. "</font>", self:GetWide() - 40 * OFGUI.ScreenScale)
     self.subtitleMarkup = self.subtitleText ~= "" and markup.Parse("<color=200,200,200,255><font=ofgui_small>" .. self.subtitleText .. "</font>", self:GetWide() - 40 * OFGUI.ScreenScale) or nil
     self.descMarkup = markup.Parse("<font=ofgui_small>" .. self.descText .. "</font>", self:GetWide() - 40 * OFGUI.ScreenScale)
     

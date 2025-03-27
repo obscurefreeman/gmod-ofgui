@@ -59,7 +59,7 @@ end
 function PANEL:Paint(w, h)
     -- 绘制左侧条形
     local barWidth = 5 * OFGUI.ScreenScale
-    draw.RoundedBox(0, 0, 0, barWidth, h, self.Color)
+    draw.RoundedBox(4 * OFGUI.ScreenScale, 0, 0, barWidth, h, self.Color)
     
     -- 绘制标题和描述文本
     local padding = 6 * OFGUI.ScreenScale

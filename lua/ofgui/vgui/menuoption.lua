@@ -6,7 +6,7 @@ AccessorFunc(PANEL, "m_bCheckable", "IsCheckable")
 
 function PANEL:Init()
 	self:SetContentAlignment(4)
-	self:SetTextInset(30, 0)
+	self:SetTextInset(30 * OFGUI.ScreenScale, 0)
 	self:SetTextColor(Color(10, 10, 10))
 	self:SetChecked(false)
 

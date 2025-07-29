@@ -10,6 +10,8 @@ function PANEL:Init()
 
     -- 创建模型图标
     self.ModelIcon = vgui.Create("ModelImage", self)
+    self.ModelIcon:SetMouseInputEnabled( false )
+	self.ModelIcon:SetKeyboardInputEnabled( false )
     
     -- 设置默认颜色
     self.ColorA = OFGUI.ButtonColor.a
@@ -31,6 +33,10 @@ end
 
 function PANEL:SetModel(mdl)
     self.ModelIcon:SetModel(mdl)
+end
+
+function PANEL:RebuildSpawnIcon()
+	self.ModelIcon:RebuildSpawnIcon()
 end
 
 function PANEL:SetTitle(text)
